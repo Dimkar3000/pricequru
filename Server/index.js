@@ -1,11 +1,54 @@
-// Bring in our dependencies
-const app = require('express')();
+#!/usr/bin/env node
+
+var https = require('https');
+var fs = require('fs');
+var express = require('express');
+var session = require('express-session')
+
+var options = {
+    key: fs.readFileSync( './localhost.key' ),
+    cert: fs.readFileSync( './localhost.cert' ),
+    requestCert: false,
+    rejectUnauthorized: false
+};
+var app = express();
+var port = process.env.PORT || 443;
+var sess = {
+  secret: 'keyboard cat',
+  cookie: {},
+  resave:false,
+  saveUninitialized:true
+}
+ 
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+ 
+app.use(session(sess))
+
+
+var server = https.createServer( options, app );
+
 const routes = require('./routes');
 
-//  Connect all our routes to our application
+app.use(function(req,res,next) {
+  if (!/https/.test(req.protocol)){
+     res.redirect("https://" + req.headers.host + req.url);
+  } else {
+     return next();
+  } 
+});
 app.use('/', routes);
 
 // Turn on that server!
-app.listen(3000, () => {
-  console.log('App listening on port 3000');
+server.listen( port, () => {
+  console.log(`App listening on port ${port}`);
 });
+
+// Redirect from http port 80 to https
+//var http = require('http');
+//http.createServer(function (req, res) {
+//    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+//    res.end();
+//}).listen(80);
