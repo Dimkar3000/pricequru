@@ -16,7 +16,7 @@
     "productType": "cellphone",
     "name": "pantofla Tablet"
     "price": 100.9,
-    "Company": "Cell Corp.",
+    "company": "Cell Corp.",
     "reviewAvg": 9.5 // Το θέλουμε σαν πεδία ώστε να μην το ξαναυπολογίζουμε σε κάθε κλήση
     
     "features":[
@@ -50,10 +50,11 @@
 # Review
 ```javascript
 {
+    "id":0,
     // We should seperate it in a different call, for performance and pagination needs
     // Sample Review Object
-    "authorId":null // If he is loggen on we keep the linked account
-    "authorName": "Mike"
+    "authorId":null, // If he is loggen on we keep the linked account
+    "authorName": "Mike",
     "score": 10, // 
     "description": "Very good phone. God bless America"
     "createTimestamp":"10-0-0T21.00.00" // Not the final format but it should be sortable
