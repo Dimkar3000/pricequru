@@ -1,6 +1,5 @@
 const routes = require('express').Router();
 
-const test = require('./test');
 
 routes.get('/', (req, res) => {
   if (req.session.views) {
@@ -16,7 +15,10 @@ routes.get('/', (req, res) => {
   }
 });
 
-routes.use('/test', test)
+routes.use('/test', (req,res) => {
+  res.write("hello world")
+  res.end()
+})
 
 
 module.exports = routes;
