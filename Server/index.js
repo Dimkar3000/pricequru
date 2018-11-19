@@ -24,6 +24,9 @@ if (app.get('env') === 'production') {
   app.set('trust proxy', 1) // trust first proxy
   sess.cookie.secure = true // serve secure cookies
 }
+else {
+
+}
  
 app.use(session(sess))
 
@@ -32,6 +35,7 @@ var server = https.createServer( options, app );
 
 const routes = require('./routes');
 
+
 app.use(function(req,res,next) {
   if (!/https/.test(req.protocol)){
      res.redirect("https://" + req.headers.host + req.url);
@@ -39,8 +43,8 @@ app.use(function(req,res,next) {
      return next();
   } 
 });
-app.use('/', routes);
 
+app.use('/', routes);
 // Turn on that server!
 server.listen( port, () => {
   console.log(`App listening on port ${port}`);
@@ -52,3 +56,5 @@ server.listen( port, () => {
 //    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
 //    res.end();
 //}).listen(80);
+
+module.exports = app
