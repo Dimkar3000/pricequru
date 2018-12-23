@@ -1,24 +1,18 @@
-const routes = require('express').Router();
-
+var routes = require('express').Router();
+var base64 = require('base-64');
+var utf8 = require('utf8');
 
 routes.get('/', (req, res) => {
-  if (req.session.views) {
-    req.session.views++
-    res.setHeader('Content-Type', 'text/html')
-    res.write('<p>views: ' + req.session.views + '</p>')
-    res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
-    res.end()
-  } else {
-    req.session.views = 1
-    req.session.cookie.maxAge = 1000
-    res.end('welcome to the session demo. refresh!')
-  }
+  let h = req.get("X-OBSERVATORY-AUTH")
+  let bytes = base64.decode(h);
+  let text = utf8.decode(bytes).split('|');
+  let username = text[0];
+  let password = text[1];
+
+  res.end(`HEADER: ${username},${password}`)
 });
 
-routes.use('/test', (req,res) => {
-  res.write("hello world")
-  res.end()
-})
+
 
 
 module.exports = routes;

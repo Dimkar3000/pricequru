@@ -1,42 +1,36 @@
 #!/usr/bin/env node
 
+
 var fs = require('fs');
 var express = require('express');
-var session = require('express-session')
-const routes = require('./routes');
+var routes = require('./routes');
 
 
 var app = express();
 var port = process.env.PORT || 433;
 
+var server;
 if (port == 443){
 
-  var options = {
+  let options = {
     key: fs.readFileSync( './localhost.key' ),
     cert: fs.readFileSync( './localhost.cert' ),
     requestCert: false,
     rejectUnauthorized: false
   };
 
-  var sess = {
-    secret: 'keyboard cat',
-    cookie: {},
-    resave:false,
-    saveUninitialized:true
-  }
+  
 
   if (app.get('env') === 'production') {
     app.set('trust proxy', 1) // trust first proxy
-    sess.cookie.secure = true // serve secure cookies
   }
   else {
   
   }
 
-  app.use(session(sess))
 
-  var https = require('https');
-  var server = https.createServer( options, app );
+  let https = require('https');
+  server = https.createServer( options, app );
   
   
   app.use(function(req,res,next) {
@@ -52,8 +46,9 @@ if (port == 443){
   
 }
 else{
-  var http = require('http');
-  var server = http.createServer(app)
+  let http = require('http');
+  
+  server = http.createServer(app)
 
   app.use('/', routes);
 }
@@ -61,6 +56,6 @@ else{
 // Turn on that server!
 server.listen( port, () => {
   console.log(`App listening on port ${port}`);
-});
+}); 
 
 module.exports = app

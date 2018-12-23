@@ -3,14 +3,15 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "cross-env PORT=80 node ./index.js",
+    "start": "./node_modules/cross-env/dist/bin/cross-env.js PORT=8080 node ./index.js",
     "test": "mocha --exit"
   },
   "dependencies": {
+    "base-64": "^0.1.0",
     "cross-env": "^5.2.0",
     "express": "^4.16.4",
-    "express-session": "^1.15.6",
-    "https": "^1.0.0"
+    "https": "^1.0.0",
+    "utf8": "^3.0.0"
   },
   "devDependencies": {
     "mocha": "^5.2.0",
