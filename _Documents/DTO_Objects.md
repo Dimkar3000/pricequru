@@ -51,8 +51,8 @@
 {
     "id": 0,
     "price": 500,
-    "date.from": "ΕΕΕΕ-ΜΜ-ΗΗ",
-    "date.to": "ΕΕΕΕ-ΜΜ-ΗΗ",
+    "dateFrom": "ΕΕΕΕ-ΜΜ-ΗΗ",
+    "dateTo": "ΕΕΕΕ-ΜΜ-ΗΗ",
     "productId": 0,
     "shopId": 0
 }

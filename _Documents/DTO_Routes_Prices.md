@@ -11,12 +11,12 @@ https://localhost:8765/observatory/api
     "start":0, // default 0
     "count":1, // default 20
     // Geo properties: ή όλες ή τίποτα
-    "geo.dist": 100, // kilometers
-    "geo.lng": 12.9, // Double
-    "geo.lat": 12.8, // Double
+    "geoDist": 100, // kilometers
+    "geoLng": 12.9, // Double
+    "geoLat": 12.8, // Double
     // Date properties: ή όλες ή τίποτα
-    "date.from": "2018-01-01", // ΕΕΕΕ-ΜΜ-ΗΗ
-    "date.to": "2018-01-02",// ΕΕΕΕ-ΜΜ-ΗΗ
+    "dateFrom": "2018-01-01", // ΕΕΕΕ-ΜΜ-ΗΗ
+    "dateTo": "2018-01-02",// ΕΕΕΕ-ΜΜ-ΗΗ
     "shops": [/* Shop objects */], // can be empty/null
     "products": [/* Product objects */] // can be empty/null
     "tags": ["tag1", "tag2"]
