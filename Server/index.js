@@ -4,7 +4,10 @@
 var fs = require('fs');
 var express = require('express');
 var routes = require('./routes');
+var mongoose = require('mongoose');
 
+var connectionString = "mongodb://sa:" + process.env.MONGO_PASS + "@pricegurudb-shard-00-00-f7dah.gcp.mongodb.net:27017,pricegurudb-shard-00-01-f7dah.gcp.mongodb.net:27017,pricegurudb-shard-00-02-f7dah.gcp.mongodb.net:27017/"+proccess.env.DB_NAME+"?ssl=true&replicaSet=PriceguruDB-shard-0&authSource=admin&retryWrites=true";
+mongoose.connect(connectionString,{useNewUrlParser: true});
 
 var app = express();
 var port = process.env.PORT || 433;
@@ -48,7 +51,8 @@ if (port == 443){
 else{
   let http = require('http');
   
-  server = http.createServer(app)
+  server = http.createServer(app);
+
 
   app.use('/', routes);
 }

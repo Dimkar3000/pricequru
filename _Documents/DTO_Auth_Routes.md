@@ -18,3 +18,16 @@ https://localhost:8765/observatory/api
     "message":"OK"
 }
 ```
+
+# Logout - POST {baseURL}/logout
+- Request
+```javascript
+{
+}
+```
+- Response
+```javascript
+{
+    "message":"OK"
+}
+```
