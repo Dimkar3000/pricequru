@@ -1,0 +1,628 @@
+{
+	"info": {
+		"_postman_id": "0f046d6c-f933-4222-9a00-afeddfb260e1",
+		"name": "pricequru",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "GetProducts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/{{base_uri}}/products?start=0&count=100&sort=id|ASC&status=ALL|format=json",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{base_uri}}",
+								"products"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "count",
+									"value": "100"
+								},
+								{
+									"key": "sort",
+									"value": "id|ASC"
+								},
+								{
+									"key": "status",
+									"value": "ALL|format=json"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostProduct",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"product1\",\n\t\"description\":\"kjabkaclnasc\",\n\t\"category\":\"phone\",\n\t\"tags\":[\"tag1\",\"tag2\"],\n\t\"withdrawn\": false\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/{{base_uri}}/products?",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{base_uri}}",
+								"products"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "count",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "id|ASC",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "ALL|format=json",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutProductById",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"product1\",\n\t\"description\":\"kjabkaclnasc\",\n\t\"category\":\"phone\",\n\t\"tags\":[\"tag1\",\"tag2\"],\n\t\"withdrawn\": false\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/{{base_uri}}/products/1?",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{base_uri}}",
+								"products",
+								"1"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "count",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "id|ASC",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "ALL|format=json",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PatchProductById",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"product1\",\n\t\"description\":\"kjabkaclnasc\",\n\t\"category\":\"phone\",\n\t\"tags\":[\"tag1\",\"tag2\"],\n\t\"withdrawn\": false\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/{{base_uri}}/products/1?",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{base_uri}}",
+								"products",
+								"1"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "count",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "id|ASC",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "ALL|format=json",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteProductById",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"product1\",\n\t\"description\":\"kjabkaclnasc\",\n\t\"category\":\"phone\",\n\t\"tags\":[\"tag1\",\"tag2\"],\n\t\"withdrawn\": false\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/{{base_uri}}/products/1?",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{base_uri}}",
+								"products",
+								"1"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "count",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "id|ASC",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "ALL|format=json",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shop",
+			"item": [
+				{
+					"name": "GetShops",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/{{base_uri}}/shops?start=0&count=100&sort=id|ASC&status=ALL|format=json",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{base_uri}}",
+								"shops"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "count",
+									"value": "100"
+								},
+								{
+									"key": "sort",
+									"value": "id|ASC"
+								},
+								{
+									"key": "status",
+									"value": "ALL|format=json"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostShop",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"shop1\",\n    \"address\":\"Thalasas kai Vounou Gonia\",\n    \"lng\":1.234567,\n    \"lat\":1.234567,\n    \"tags\":[\"tag1\",\"tag2\"],\n    \"withdrawn\":false\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/{{base_uri}}/shops?",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{base_uri}}",
+								"shops"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "count",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "id|ASC",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "ALL|format=json",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutShopById",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"product1\",\n\t\"description\":\"kjabkaclnasc\",\n\t\"category\":\"phone\",\n\t\"tags\":[\"tag1\",\"tag2\"],\n\t\"withdrawn\": false\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/{{base_uri}}/shops/1?",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{base_uri}}",
+								"shops",
+								"1"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "count",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "id|ASC",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "ALL|format=json",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PatchShopById",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"product1\",\n\t\"description\":\"kjabkaclnasc\",\n\t\"category\":\"phone\",\n\t\"tags\":[\"tag1\",\"tag2\"],\n\t\"withdrawn\": false\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/{{base_uri}}/shops/1?",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{base_uri}}",
+								"shops",
+								"1"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "count",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "id|ASC",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "ALL|format=json",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteShopById",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"product1\",\n\t\"description\":\"kjabkaclnasc\",\n\t\"category\":\"phone\",\n\t\"tags\":[\"tag1\",\"tag2\"],\n\t\"withdrawn\": false\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/{{base_uri}}/shops/1?",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{base_uri}}",
+								"shops",
+								"1"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "count",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "id|ASC",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "ALL|format=json",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "100c0892-09ea-4823-90a2-957cb89f79a6",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-OBSERVATORY-AUTH",
+						"value": "5c25d3ad5a9ec90b6536f204",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"1234!\"\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{domain}}:{{port}}/{{base_uri}}/login?format=json",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{domain}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{base_uri}}",
+						"login"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OBSERVATORY-AUTH",
+						"value": "5c25d3ad5a9ec90b6536f204",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{protocol}}://{{domain}}:{{port}}/{{base_uri}}/logout?format=json&=",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{domain}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{base_uri}}",
+						"logout"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						},
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
