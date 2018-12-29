@@ -4,4 +4,4 @@ const getters = {
   }
 };
 
-export { getters };
+export default getters;

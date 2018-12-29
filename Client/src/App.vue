@@ -1,33 +1,28 @@
 <template>
-  <v-app>
+  <v-app dark>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
+        <span>Price Quru</span>
       </v-toolbar-title>
       <v-spacer />
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
+      <v-btn flat>
+        <span class="mr-2">Συνδεση</span>
       </v-btn>
     </v-toolbar>
 
     <v-content>
-      <HelloWorld />
+      <router-view />
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import HomePage from './components/HomePage.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HomePage
   },
   data() {
     return {

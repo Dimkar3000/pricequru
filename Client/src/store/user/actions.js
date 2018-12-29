@@ -5,4 +5,4 @@ const actions = {
   setToken: createAction(types.SET_TOKEN)
 };
 
-export { actions };
+export default actions;
