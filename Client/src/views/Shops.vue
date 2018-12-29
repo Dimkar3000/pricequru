@@ -1,5 +1,5 @@
 <template>
-  <h2>Shops</h2>
+  <h2>Καταστήματα</h2>
 </template>
 
 <script>

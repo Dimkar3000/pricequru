@@ -1,5 +1,5 @@
 <template>
-  <h2>Product {{ id }}</h2>
+  <h2>Προϊον {{ id }}</h2>
 </template>
 
 <script>

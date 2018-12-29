@@ -1,5 +1,5 @@
 <template>
-  <h2>Shop {{ id }}</h2>
+  <h2>Κατάστημα {{ id }}</h2>
 </template>
 
 <script>

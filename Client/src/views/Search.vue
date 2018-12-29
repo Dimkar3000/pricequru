@@ -1,6 +1,6 @@
 <template>
   <span>
-    {{ query }}
+    Αναζητήσατε τον όρο "{{ query }}"
   </span>
 </template>
 
