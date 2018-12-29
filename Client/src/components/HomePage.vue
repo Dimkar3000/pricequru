@@ -12,12 +12,14 @@
           height="200"
         />
       </v-flex>
-
       <v-flex mb-4>
         <h1 class="display-2 font-weight-bold mb-3">
           Καλώς ήρθατε στο Price Quru
         </h1>
       </v-flex>
+    </v-layout>
+
+    <v-layout>
       <v-flex mb-4>
         <v-form @submit.prevent="search">
           <v-text-field

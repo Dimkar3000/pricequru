@@ -22,6 +22,5 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
-*.sw*
-out/linecount.json
+*.sw*out/linecount.json
 out/linecount.txt
