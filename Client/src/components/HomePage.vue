@@ -19,43 +19,16 @@
       </v-flex>
     </v-layout>
 
-    <v-layout>
-      <v-flex mb-4>
-        <v-form @submit.prevent="search">
-          <v-text-field
-            class="mx-3"
-            flat
-            label="Αναζήτηση"
-            prepend-inner-icon="search"
-            solo-inverted
-            v-model="searchTerm"
-          />
-        </v-form>
-      </v-flex>
-
-    </v-layout>
+    <SearchBar />
   </v-container>
 </template>
 
 <script>
+import SearchBar from './SearchBar.vue';
+
 export default {
-  data: () => {
-    return {
-      searchTerm: ''
-    };
-  },
-  methods: {
-    search() {
-      if (!this.searchTerm.trim()) {
-        return;
-      }
-      this.$router.push({
-        name: 'search',
-        query: {
-          q: this.searchTerm.trim()
-        }
-      });
-    }
+  components: {
+    SearchBar
   }
 };
 </script>

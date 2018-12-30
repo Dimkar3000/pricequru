@@ -86,7 +86,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.clickable {
+  cursor: pointer;
+}
+
 .v-toolbar__title a {
   text-decoration: none;
   color: inherit;

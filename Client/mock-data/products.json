@@ -1,0 +1,1252 @@
+[
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/015912/15912019/medium_20180925115716_xiaomi_redmi_note_6_pro_64gb.jpeg",
+    "name": "Xiaomi Redmi Note 6 Pro (64GB)",
+    "price": 188,
+    "specs": {
+      "Οθόνη": "6.26\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 5MP",
+      "Selfie": "20MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "0"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/014037/14037867/medium_20180514105413_xiaomi_redmi_note_5_4gb_64gb.jpeg",
+    "name": "Xiaomi Redmi Note 5 (64GB)",
+    "price": 168,
+    "specs": {
+      "Οθόνη": "5.99\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 5MP",
+      "Selfie": "13MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "1"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/016046/16046657/medium_20181008101701_samsung_galaxy_a7_2018_dual_64gb.jpeg",
+    "name": "Samsung Galaxy A7 (2018) Dual (64GB)",
+    "price": 254,
+    "specs": {
+      "Οθόνη": "6\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "24MP + 8MP",
+      "Selfie": "24MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "2"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/015538/15538676/medium_20180802094443_xiaomi_mi_a2_64gb.jpeg",
+    "name": "Xiaomi Mi A2 (64GB)",
+    "price": 181,
+    "specs": {
+      "Οθόνη": "5.99\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 20MP",
+      "Selfie": "20MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "3"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/013784/13784463/medium_20180226103705_samsung_galaxy_s9_plus.jpeg",
+    "name": "Samsung Galaxy S9+ Dual (64GB)",
+    "price": 577,
+    "specs": {
+      "Οθόνη": "6.2\"",
+      "RAM": "6GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 12MP",
+      "Selfie": "8MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "4"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/015912/15912094/medium_20180925120034_xiaomi_redmi_note_6_pro_32gb.jpeg",
+    "name": "Xiaomi Redmi Note 6 Pro (32GB)",
+    "price": 164,
+    "specs": {
+      "Οθόνη": "6.26\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "12MP + 5MP",
+      "Selfie": "20MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "5"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/015430/15430345/medium_20180718110654_xiaomi_redmi_6.jpeg",
+    "name": "Xiaomi Redmi 6 (32GB)",
+    "price": 113,
+    "specs": {
+      "Οθόνη": "5.45\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "12MP + 5MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "6"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/015647/15647523/medium_20181129104942_xiaomi_pocophone_f1_64gb.jpeg",
+    "name": "Xiaomi Pocophone F1 (64GB)",
+    "price": 290,
+    "specs": {
+      "Οθόνη": "6.18\"",
+      "RAM": "6GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 5MP",
+      "Selfie": "20MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "7"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/014920/14920478/medium_20180514110550_xiaomi_redmi_note_5_3gb_32gb.jpeg",
+    "name": "Xiaomi Redmi Note 5 (32GB)",
+    "price": 150,
+    "specs": {
+      "Οθόνη": "5.99\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "12MP + 5MP",
+      "Selfie": "13MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "8"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/014244/14244326/medium_20180308140557_huawei_p20_lite.jpeg",
+    "name": "Huawei P20 Lite Dual (64GB)",
+    "price": 234,
+    "specs": {
+      "Οθόνη": "5.84\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "16MP + 2MP",
+      "Selfie": "16MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "9"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/009783/9783213/medium_20160909145853_apple_iphone_7_32gb.jpeg",
+    "name": "Apple iPhone 7 (32GB)",
+    "price": 440,
+    "specs": {
+      "Οθόνη": "4.7\"",
+      "RAM": "2GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "12MP",
+      "Selfie": "7MP",
+      "Πυρήνες CPU": "4"
+    },
+    "id": "10"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/011140/11140286/medium_20170330105747_samsung_galaxy_s8.jpeg",
+    "name": "Samsung Galaxy S8 (64GB)",
+    "price": 387,
+    "specs": {
+      "Οθόνη": "5.8\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP",
+      "Selfie": "8MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "11"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/015272/15272178/medium_20180802094550_xiaomi_mi_a2_lite_64gb.jpeg",
+    "name": "Xiaomi Mi A2 Lite (64GB)",
+    "price": 159,
+    "specs": {
+      "Οθόνη": "5.84\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 5MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "12"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/013784/13784465/medium_20180226103243_samsung_galaxy_s9.jpeg",
+    "name": "Samsung Galaxy S9 Dual (64GB)",
+    "price": 470,
+    "specs": {
+      "Οθόνη": "5.8\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP",
+      "Selfie": "8MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "13"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/015488/15488571/medium_20180809201756_samsung_galaxy_note_9.jpeg",
+    "name": "Samsung Galaxy Note 9 Dual (128GB)",
+    "price": 717,
+    "specs": {
+      "Οθόνη": "6.4\"",
+      "RAM": "6GB",
+      "Μνήμη": "128GB",
+      "Κάμερα": "12MP + 12MP",
+      "Selfie": "8MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "14"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/015430/15430797/medium_20180719111152_xiaomi_redmi_6a_16gb.jpeg",
+    "name": "Xiaomi Redmi 6A (16GB)",
+    "price": 87,
+    "specs": {
+      "Οθόνη": "5.45\"",
+      "RAM": "2GB",
+      "Μνήμη": "16GB",
+      "Κάμερα": "13MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "4"
+    },
+    "id": "15"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/015035/15035815/medium_20180528101007_huawei_honor_10_4gb_64gb.jpeg",
+    "name": "Huawei Honor 10 (64GB)",
+    "price": 295,
+    "specs": {
+      "Οθόνη": "5.84\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "16MP + 24MP",
+      "Selfie": "24MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "16"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/014724/14724511/medium_20180424120334_samsung_galaxy_a6_2018.jpeg",
+    "name": "Samsung Galaxy A6+ (2018) Dual (32GB)",
+    "price": 212,
+    "specs": {
+      "Οθόνη": "6\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "16MP + 5MP",
+      "Selfie": "24MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "17"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/014954/14954446/medium_20180517112500_samsung_galaxy_a6_2018_dual.jpeg",
+    "name": "Samsung Galaxy A6 (2018) Dual (32GB)",
+    "price": 189,
+    "specs": {
+      "Οθόνη": "5.6\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "16MP",
+      "Selfie": "16MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "18"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/015863/15863576/medium_20180919141540_xiaomi_mi_8_lite.jpeg",
+    "name": "Xiaomi Mi 8 Lite (64GB)",
+    "price": 228,
+    "specs": {
+      "Οθόνη": "6.26\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 5MP",
+      "Selfie": "24MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "19"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/015719/15719661/medium_20181129105703_xiaomi_pocophone_f1_128gb.jpeg",
+    "name": "Xiaomi Pocophone F1 (128GB)",
+    "price": 319,
+    "specs": {
+      "Οθόνη": "6.21\"",
+      "RAM": "6GB",
+      "Μνήμη": "128GB",
+      "Κάμερα": "12MP + 5MP",
+      "Selfie": "20MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "20"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/012745/12745857/medium_20170915113107_apple_iphone_8.jpeg",
+    "name": "Apple iPhone 8 (64GB)",
+    "price": 576,
+    "specs": {
+      "Οθόνη": "4.7\"",
+      "RAM": "2GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP",
+      "Selfie": "7MP"
+    },
+    "id": "21"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/015487/15487154/medium_20180726101507_xiaomi_mi_8_64gb.jpeg",
+    "name": "Xiaomi Mi 8 (64GB)",
+    "price": 358,
+    "specs": {
+      "Οθόνη": "6.21\"",
+      "RAM": "6GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 12MP",
+      "Selfie": "20MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "22"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/012745/12745862/medium_20170915113153_apple_iphone_8_plus.jpeg",
+    "name": "Apple iPhone 8 Plus (64GB)",
+    "price": 719,
+    "specs": {
+      "Οθόνη": "5.5\"",
+      "RAM": "3GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 12MP",
+      "Selfie": "7MP",
+      "Πυρήνες CPU": "4+2"
+    },
+    "id": "23"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/014244/14244323/medium_20180327195311_huawei_p20_pro.jpeg",
+    "name": "Huawei P20 Pro Dual (128GB)",
+    "price": 577,
+    "specs": {
+      "Οθόνη": "6.1\"",
+      "RAM": "6GB",
+      "Μνήμη": "128GB",
+      "Κάμερα": "40MP + 20MP",
+      "Selfie": "24MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "24"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/012156/12156094/medium_20170607174351_samsung_galaxy_j5_2017.jpeg",
+    "name": "Samsung Galaxy J5 Dual (2017) (16GB)",
+    "price": 139,
+    "specs": {
+      "Οθόνη": "5.2\"",
+      "RAM": "2GB",
+      "Μνήμη": "16GB",
+      "Κάμερα": "13MP",
+      "Selfie": "13MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "25"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/012749/12749690/medium_20170912224330_apple_iphone_x.jpeg",
+    "name": "Apple iPhone X (64GB)",
+    "price": 854,
+    "specs": {
+      "Οθόνη": "5.8\"",
+      "RAM": "3GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 12MP",
+      "Selfie": "7MP"
+    },
+    "id": "26"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/015169/15169160/medium_20180613111613_samsung_galaxy_j6_32gb.jpeg",
+    "name": "Samsung Galaxy J6 Dual (32GB)",
+    "price": 150,
+    "specs": {
+      "Οθόνη": "5.6\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "13MP",
+      "Selfie": "8MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "27"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/011140/11140429/medium_20170330105810_samsung_galaxy_s8.jpeg",
+    "name": "Samsung Galaxy S8+ (64GB)",
+    "price": 437,
+    "specs": {
+      "Οθόνη": "6.2\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP",
+      "Selfie": "8MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "28"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/015670/15670996/medium_20180901135111_huawei_mate_20_lite.jpeg",
+    "name": "Huawei Mate 20 Lite Dual (4GB/64GB)",
+    "price": 282,
+    "specs": {
+      "Οθόνη": "6.3\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "20MP + 2MP",
+      "Selfie": "24MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "29"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/012843/12843260/medium_20171121153109_huawei_mate_10_lite_64gb.jpeg",
+    "name": "Huawei Mate 10 Lite Dual (64GB)",
+    "price": 204,
+    "specs": {
+      "Οθόνη": "5.9\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "16MP + 2MP",
+      "Selfie": "13MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "30"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/014445/14445724/medium_20180802094335_xiaomi_mi_a2_32gb.jpeg",
+    "name": "Xiaomi Mi A2 (32GB)",
+    "price": 161,
+    "specs": {
+      "Οθόνη": "5.99\"",
+      "RAM": "4GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "12MP + 20MP",
+      "Selfie": "20MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "31"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/015069/15069724/medium_20180531113331_xiaomi_mi_8.jpeg",
+    "name": "Xiaomi Mi 8 (128GB)",
+    "price": 383,
+    "specs": {
+      "Οθόνη": "6.21\"",
+      "RAM": "6GB",
+      "Μνήμη": "128GB",
+      "Κάμερα": "12MP + 12MP",
+      "Selfie": "20MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "32"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/015809/15809780/medium_20180919113405_apple_iphone_xs_max_64gb.jpeg",
+    "name": "Apple iPhone XS Max (64GB)",
+    "price": 1.128,
+    "specs": {
+      "Οθόνη": "6.5\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 12MP",
+      "Selfie": "7MP",
+      "Πυρήνες CPU": "4+2"
+    },
+    "id": "33"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/015809/15809760/medium_20180912221154_apple_iphone_xr.jpeg",
+    "name": "Apple iPhone XR (64GB)",
+    "price": 744,
+    "specs": {
+      "Οθόνη": "6.1\"",
+      "RAM": "3GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP",
+      "Selfie": "7MP"
+    },
+    "id": "34"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/015809/15809762/medium_20180919105619_apple_iphone_xs_64gb.jpeg",
+    "name": "Apple iPhone XS (64GB)",
+    "price": 1.029,
+    "specs": {
+      "Οθόνη": "5.8\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 12MP",
+      "Selfie": "7MP",
+      "Πυρήνες CPU": "4+2"
+    },
+    "id": "35"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/013528/13528910/medium_20171207150243_xiaomi_redmi_5_plus_4gb_64gb.jpeg",
+    "name": "Xiaomi Redmi 5 Plus (64GB)",
+    "price": 163,
+    "specs": {
+      "Οθόνη": "5.99\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "36"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/013528/13528911/medium_20171207150259_xiaomi_redmi_5_plus_3gb_32gb.jpeg",
+    "name": "Xiaomi Redmi 5 Plus (32GB)",
+    "price": 138,
+    "specs": {
+      "Οθόνη": "5.99\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "12MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "37"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/014911/14911465/medium_20180511132913_xiaomi_redmi_s2_32gb.jpeg",
+    "name": "Xiaomi Redmi S2 (32GB)",
+    "price": 138,
+    "specs": {
+      "Οθόνη": "5.99\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "12MP + 5MP",
+      "Selfie": "16MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "38"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/016064/16064502/medium_20181009101602_samsung_galaxy_j4_2gb_32gb.jpeg",
+    "name": "Samsung Galaxy J4+ (2GB/32GB)",
+    "price": 127,
+    "specs": {
+      "Οθόνη": "6\"",
+      "RAM": "2GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "13MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "4"
+    },
+    "id": "39"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/015575/15575427/medium_20180808101020_xiaomi_mi_a2_lite_32gb.jpeg",
+    "name": "Xiaomi Mi A2 Lite (32GB)",
+    "price": 147,
+    "specs": {
+      "Οθόνη": "5.84\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "12MP + 5MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "40"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/009783/9783214/medium_20160909152626_apple_iphone_7_plus_32gb.jpeg",
+    "name": "Apple iPhone 7 Plus (32GB)",
+    "price": 558,
+    "specs": {
+      "Οθόνη": "5.5\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "12MP + 12MP",
+      "Selfie": "7MP",
+      "Πυρήνες CPU": "4"
+    },
+    "id": "41"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/013621/13621211/medium_20171219130514_samsung_galaxy_a8_2018.jpeg",
+    "name": "Samsung Galaxy A8 (2018) Dual (32GB)",
+    "price": 259,
+    "specs": {
+      "Οθόνη": "5.6\"",
+      "RAM": "4GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "16MP",
+      "Selfie": "16MP",
+      "Πυρήνες CPU": "2+6"
+    },
+    "id": "42"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/012156/12156106/medium_20170607174328_samsung_galaxy_j7_2017.jpeg",
+    "name": "Samsung Galaxy J7 (2017) Duos (16GB)",
+    "price": 188,
+    "specs": {
+      "Οθόνη": "5.5\"",
+      "RAM": "3GB",
+      "Μνήμη": "16GB",
+      "Κάμερα": "13MP",
+      "Selfie": "13MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "43"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/015097/15097206/medium_20180605102729_xiaomi_redmi_s2_64gb.jpeg",
+    "name": "Xiaomi Redmi S2 (64GB)",
+    "price": 160,
+    "specs": {
+      "Οθόνη": "5.99\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 5MP",
+      "Selfie": "16MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "44"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/015612/15612029/medium_20180814114813_samsung_galaxy_note_9_dual_512gb.jpeg",
+    "name": "Samsung Galaxy Note 9 Dual (512GB)",
+    "price": 881,
+    "specs": {
+      "Οθόνη": "6.4\"",
+      "RAM": "8GB",
+      "Μνήμη": "512GB",
+      "Κάμερα": "12MP + 12MP",
+      "Selfie": "8MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "45"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/016106/16106709/medium_20181012094429_samsung_galaxy_j6_32gb.jpeg",
+    "name": "Samsung Galaxy J6+ (32GB)",
+    "price": 156,
+    "specs": {
+      "Οθόνη": "6\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "13MP + 5MP",
+      "Selfie": "8MP",
+      "Πυρήνες CPU": "4"
+    },
+    "id": "46"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/012460/12460493/medium_20170801205059_samsung_note_8.jpeg",
+    "name": "Samsung Galaxy Note 8 Dual (64GB)",
+    "price": 527,
+    "specs": {
+      "Οθόνη": "6.3\"",
+      "RAM": "6GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 12MP",
+      "Selfie": "8MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "47"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/014052/14052501/medium_20180412111411_nokia_7_plus.jpeg",
+    "name": "Nokia 7 Plus Dual (64GB)",
+    "price": 261,
+    "specs": {
+      "Οθόνη": "6\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 13MP",
+      "Selfie": "16MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "48"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/015617/15617734/medium_20180816124015_xiaomi_mi_max_3_64gb.jpeg",
+    "name": "Xiaomi Mi Max 3 (64GB)",
+    "price": 244,
+    "specs": {
+      "Οθόνη": "6.9\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 5MP",
+      "Selfie": "8MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "49"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/013678/13678660/medium_20171229110221_huawei_p_smart.jpeg",
+    "name": "Huawei P Smart Dual (32GB)",
+    "price": 156,
+    "specs": {
+      "Οθόνη": "5.65\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "13MP + 2MP",
+      "Selfie": "8MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "50"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/013649/13649805/medium_20171221175048_huawei_honor_9_lite.jpeg",
+    "name": "Huawei Honor 9 Lite (32GB)",
+    "price": 156,
+    "specs": {
+      "Οθόνη": "5.65\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "13MP + 2MP",
+      "Selfie": "13MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "51"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/015575/15575482/medium_20180808101156_xiaomi_mi_a2_128gb.jpeg",
+    "name": "Xiaomi Mi A2 (128GB)",
+    "price": 234,
+    "specs": {
+      "Οθόνη": "5.99\"",
+      "RAM": "6GB",
+      "Μνήμη": "128GB",
+      "Κάμερα": "12MP + 20MP",
+      "Selfie": "20MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "52"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/009889/9889976/medium_20160919150630_apple_iphone_6s_32gb.jpeg",
+    "name": "Apple iPhone 6s (32GB)",
+    "price": 335,
+    "specs": {
+      "Οθόνη": "4.7\"",
+      "RAM": "2GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "12MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "2"
+    },
+    "id": "53"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/012267/12267330/medium_20170621144858_samsung_galaxy_j5_2017.jpeg",
+    "name": "Samsung Galaxy J5 (2017) (16GB)",
+    "price": 138,
+    "specs": {
+      "Οθόνη": "5.2\"",
+      "RAM": "2GB",
+      "Μνήμη": "16GB",
+      "Κάμερα": "13MP",
+      "Selfie": "13MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "54"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/016137/16137966/medium_20181015161625_apple_iphone_xr_128gb.jpeg",
+    "name": "Apple iPhone XR (128GB)",
+    "price": 849,
+    "specs": {
+      "Οθόνη": "6.1\"",
+      "RAM": "3GB",
+      "Μνήμη": "128GB",
+      "Κάμερα": "12MP",
+      "Selfie": "7MP"
+    },
+    "id": "55"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/016365/16365974/medium_20181105103035_xiaomi_mi_8_lite_128gb.jpeg",
+    "name": "Xiaomi Mi 8 Lite (128GB)",
+    "price": 271,
+    "specs": {
+      "Οθόνη": "6.26\"",
+      "RAM": "6GB",
+      "Μνήμη": "128GB",
+      "Κάμερα": "12MP + 5MP",
+      "Selfie": "24MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "56"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/016226/16226059/medium_20181023115823_huawei_honor_8x_64gb.jpeg",
+    "name": "Huawei Honor 8X (64GB)",
+    "price": 253,
+    "specs": {
+      "Οθόνη": "6.5\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "20MP + 2MP",
+      "Selfie": "16MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "57"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/015858/15858774/medium_20180919113336_apple_iphone_xs_max_256gb.jpeg",
+    "name": "Apple iPhone XS Μax (256GB)",
+    "price": 1.286,
+    "specs": {
+      "Οθόνη": "6.5\"",
+      "RAM": "4GB",
+      "Μνήμη": "256GB",
+      "Κάμερα": "12MP + 12MP",
+      "Selfie": "7MP",
+      "Πυρήνες CPU": "4+2"
+    },
+    "id": "58"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/014055/14055246/medium_20180215144118_samsung_galaxy_a8_2018_32gb.jpeg",
+    "name": "Samsung Galaxy A8 (2018) (32GB)",
+    "price": 256,
+    "specs": {
+      "Οθόνη": "5.6\"",
+      "RAM": "4GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "16MP",
+      "Selfie": "16MP",
+      "Πυρήνες CPU": "2+6"
+    },
+    "id": "59"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/012709/12709085/medium_20170905124759_xiaomi_mi_a1.jpeg",
+    "name": "Xiaomi Mi A1 (64GB)",
+    "price": 178,
+    "specs": {
+      "Οθόνη": "5.5\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 12MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "60"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/013172/13172102/medium_20171027123710_apple_iphone_x_256gb.jpeg",
+    "name": "Apple iPhone X (256GB)",
+    "price": 949,
+    "specs": {
+      "Οθόνη": "5.8\"",
+      "RAM": "3GB",
+      "Μνήμη": "256GB",
+      "Κάμερα": "12MP + 12MP",
+      "Selfie": "7MP"
+    },
+    "id": "61"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/014053/14053053/medium_20180215115518_xiaomi_redmi_5_16gb.jpeg",
+    "name": "Xiaomi Redmi 5 (16GB)",
+    "price": 119,
+    "specs": {
+      "Οθόνη": "5.7\"",
+      "RAM": "2GB",
+      "Μνήμη": "16GB",
+      "Κάμερα": "12MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "62"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/015691/15691041/medium_20180830171256_huawei_honor_play.jpeg",
+    "name": "Huawei Honor Play (64GB)",
+    "price": 256,
+    "specs": {
+      "Οθόνη": "6.3\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "16MP + 2MP",
+      "Selfie": "16MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "63"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/016300/16300708/medium_20181030103741_oneplus_6t.jpeg",
+    "name": "OnePlus 6T (8GB/128GB)",
+    "price": 618,
+    "specs": {
+      "Οθόνη": "6.41\"",
+      "RAM": "8GB",
+      "Μνήμη": "128GB",
+      "Κάμερα": "16MP + 20MP",
+      "Selfie": "16MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "64"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/015011/15011394/medium_20180524095056_oneplus_6_8gb_128gb.jpeg",
+    "name": "OnePlus 6 (128GB)",
+    "price": 526,
+    "specs": {
+      "Οθόνη": "6.28\"",
+      "RAM": "8GB",
+      "Μνήμη": "128GB",
+      "Κάμερα": "16MP + 20MP",
+      "Selfie": "16MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "65"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/015481/15481683/medium_20180725163112_xiaomi_redmi_6a_2gb_32gb.jpeg",
+    "name": "Xiaomi Redmi 6A (2GB/32GB)",
+    "price": 103,
+    "specs": {
+      "Οθόνη": "5.45\"",
+      "RAM": "2GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "13MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "4"
+    },
+    "id": "66"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/009783/9783215/medium_20160909150225_apple_iphone_7_128gb.jpeg",
+    "name": "Apple iPhone 7 (128GB)",
+    "price": 569,
+    "specs": {
+      "Οθόνη": "4.7\"",
+      "RAM": "2GB",
+      "Μνήμη": "128GB",
+      "Κάμερα": "12MP",
+      "Selfie": "7MP",
+      "Πυρήνες CPU": "4"
+    },
+    "id": "67"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/015057/15057797/medium_20180530101444_samsung_galaxy_a6_2018.jpeg",
+    "name": "Samsung Galaxy A6+ (2018) (32GB)",
+    "price": 229,
+    "specs": {
+      "Οθόνη": "6\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "16MP + 5MP",
+      "Selfie": "24MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "68"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/015250/15250542/medium_20180621120410_samsung_galaxy_j6_32gb.jpeg",
+    "name": "Samsung Galaxy J6 (32GB)",
+    "price": 154,
+    "specs": {
+      "Οθόνη": "5.6\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "13MP",
+      "Selfie": "8MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "69"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/016283/16283718/medium_20181029111653_xiaomi_redmi_6_3gb_64gb.jpeg",
+    "name": "Xiaomi Redmi 6 (3GB/64GB)",
+    "price": 123,
+    "specs": {
+      "Οθόνη": "5.45\"",
+      "RAM": "3GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 5MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "70"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/010756/10756340/medium_20170130152830_samsung_galaxy_a5_2017_32gb.jpeg",
+    "name": "Samsung Galaxy A5 2017 (32GB)",
+    "price": 239,
+    "specs": {
+      "Οθόνη": "5.2\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "16MP",
+      "Selfie": "16MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "71"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/012683/12683524/medium_20170914095309_sony_xperia_xz1.jpeg",
+    "name": "Sony Xperia XZ1 (64GB)",
+    "price": 226,
+    "specs": {
+      "Οθόνη": "5.2\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "19MP",
+      "Selfie": "13MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "72"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/011069/11069307/medium_20170215120338_xiaomi_redmi_note_4x_32gb.jpeg",
+    "name": "Xiaomi Redmi Note 4X (Snapdragon) (32GB)",
+    "price": 148,
+    "specs": {
+      "Οθόνη": "5.5\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "13MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "73"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/008332/8332719/medium_20161010124317_samsung_galaxy_s7_32gb.jpeg",
+    "name": "Samsung Galaxy S7 (32GB)",
+    "price": 289,
+    "specs": {
+      "Οθόνη": "5.1\"",
+      "RAM": "4GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "12MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "74"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/014944/14944577/medium_20180516102708_huawei_y6_dual_2018_16gb.jpeg",
+    "name": "Huawei Y6 Dual (2018) (16GB)",
+    "price": 120,
+    "specs": {
+      "Οθόνη": "5.7\"",
+      "RAM": "2GB",
+      "Μνήμη": "16GB",
+      "Κάμερα": "13MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "4"
+    },
+    "id": "75"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/012502/12502797/medium_20170726100048_samsung_galaxy_j3_2017_duos.jpeg",
+    "name": "Samsung Galaxy J3 (2017) Duos (16GB)",
+    "price": 117,
+    "specs": {
+      "Οθόνη": "5\"",
+      "RAM": "2GB",
+      "Μνήμη": "16GB",
+      "Κάμερα": "13MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "4"
+    },
+    "id": "76"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/013528/13528737/medium_20171207144737_xiaomi_redmi_5_3gb_32gb.jpeg",
+    "name": "Xiaomi Redmi 5 (32GB)",
+    "price": 138,
+    "specs": {
+      "Οθόνη": "5.7\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "12MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "77"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/013300/13300311/medium_20171116192911_oneplus_5t_8gb_128gb.jpeg",
+    "name": "OnePlus 5T (8GB/128GB)",
+    "price": 475,
+    "specs": {
+      "Οθόνη": "6\"",
+      "RAM": "8GB",
+      "Μνήμη": "128GB",
+      "Κάμερα": "16MP + 20MP",
+      "Selfie": "16MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "78"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/014244/14244324/medium_20180327195302_huawei_p20.jpeg",
+    "name": "Huawei P20 Dual (128GB)",
+    "price": 433,
+    "specs": {
+      "Οθόνη": "5.8\"",
+      "RAM": "4GB",
+      "Μνήμη": "128GB",
+      "Κάμερα": "12MP + 20MP",
+      "Selfie": "24MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "79"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/014724/14724508/medium_20180502114850_samsung_galaxy_a6_2018.jpeg",
+    "name": "Samsung Galaxy A6 (2018) (32GB)",
+    "price": 186,
+    "specs": {
+      "Οθόνη": "5.6\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "16MP",
+      "Selfie": "16MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "80"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/012452/12452938/medium_20170718101028_nokia_105_dual_2017.jpeg",
+    "name": "Nokia 105 (2017) Dual",
+    "price": 18,
+    "specs": {
+      "Οθόνη": "1.8\""
+    },
+    "id": "81"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/014439/14439124/medium_20180518101105_xiaomi_mi_mix_2s.jpeg",
+    "name": "Xiaomi Mi Mix 2S (64GB)",
+    "price": 364,
+    "specs": {
+      "Οθόνη": "5.99\"",
+      "RAM": "6GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP + 12MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "82"
+  },
+  {
+    "imageUrl": "https://a.scdn.gr/images/sku_main_images/011999/11999744/medium_20170731161016_xiaomi_mi_max_2_64gb.jpeg",
+    "name": "Xiaomi Mi Max 2 (64GB)",
+    "price": 198,
+    "specs": {
+      "Οθόνη": "6.44\"",
+      "RAM": "4GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "12MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "83"
+  },
+  {
+    "imageUrl": "https://b.scdn.gr/images/sku_main_images/014245/14245920/medium_20180514145340_oneplus_6.jpeg",
+    "name": "OnePlus 6 (64GB)",
+    "price": 449,
+    "specs": {
+      "Οθόνη": "6.28\"",
+      "RAM": "6GB",
+      "Μνήμη": "64GB",
+      "Κάμερα": "16MP + 20MP",
+      "Selfie": "16MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "84"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/016827/16827785/medium_20181217104041_mls_mx_2019_32gb.jpeg",
+    "name": "MLS MX 2019 (32GB)",
+    "price": 148,
+    "specs": {
+      "Οθόνη": "5.5\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "16MP",
+      "Selfie": "13MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "85"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/015479/15479938/medium_20180725124740_samsung_galaxy_j4_32gb.jpeg",
+    "name": "Samsung Galaxy J4 (32GB)",
+    "price": 134,
+    "specs": {
+      "Οθόνη": "5.5\"",
+      "RAM": "2GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "13MP",
+      "Selfie": "5MP",
+      "Πυρήνες CPU": "4"
+    },
+    "id": "86"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/015306/15306513/medium_20180629111454_nokia_3_1_16gb.jpeg",
+    "name": "Nokia 3.1 (16GB)",
+    "price": 121,
+    "specs": {
+      "Οθόνη": "5.2\"",
+      "RAM": "2GB",
+      "Μνήμη": "16GB",
+      "Κάμερα": "13MP",
+      "Selfie": "8MP",
+      "Πυρήνες CPU": "4+4"
+    },
+    "id": "87"
+  },
+  {
+    "imageUrl": "https://d.scdn.gr/images/sku_main_images/012749/12749673/medium_20170911122551_xiaomi_redmi_note_5a_prime_32gb.jpeg",
+    "name": "Xiaomi Redmi Note 5a Prime (32GB)",
+    "price": 142,
+    "specs": {
+      "Οθόνη": "5.5\"",
+      "RAM": "3GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "13MP",
+      "Selfie": "16MP",
+      "Πυρήνες CPU": "8"
+    },
+    "id": "88"
+  },
+  {
+    "imageUrl": "https://c.scdn.gr/images/sku_main_images/011504/11504255/medium_20170712112856_apple_iphone_se_32gb.jpeg",
+    "name": "Apple iPhone SE (32GB)",
+    "price": 297,
+    "specs": {
+      "Οθόνη": "4\"",
+      "RAM": "2GB",
+      "Μνήμη": "32GB",
+      "Κάμερα": "12MP",
+      "Selfie": "1.2MP",
+      "Πυρήνες CPU": "2"
+    },
+    "id": "89"
+  }
+]

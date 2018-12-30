@@ -9,10 +9,12 @@
 
       <span>Συνδεθείτε</span>
       <v-btn
-        fab
         @click="modalClosed"
         class="right"
-      >X</v-btn>
+        fab
+      >
+        <v-icon>close</v-icon>
+      </v-btn>
       <v-flex justify-center>
         <v-form @submit="submitForm">
           <v-text-field

@@ -3,7 +3,6 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Product from './views/Product.vue';
 import Products from './views/Products.vue';
-import Search from './views/Search.vue';
 import Shop from './views/Shop.vue';
 import Shops from './views/Shops.vue';
 
@@ -19,23 +18,18 @@ export default new Router({
     {
       path: '/products',
       name: 'products',
-      component: Products
+      component: Products,
+      props: (route) => {
+        return {
+          query: route.query.q
+        };
+      }
     },
     {
       path: '/products/:id',
       name: 'product',
       component: Product,
       props: true
-    },
-    {
-      path: '/search',
-      name: 'search',
-      component: Search,
-      props: (route) => {
-        return {
-          query: route.query.q
-        };
-      }
     },
     {
       path: '/shops',
