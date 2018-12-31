@@ -6,6 +6,8 @@ import Products from './views/Products.vue';
 import Shop from './views/Shop.vue';
 import Shops from './views/Shops.vue';
 
+import LocationSelector from './components/LocationSelector.vue';
+
 Vue.use(Router);
 
 export default new Router({
@@ -41,6 +43,10 @@ export default new Router({
       name: 'shop',
       component: Shop,
       props: true
+    },
+    {
+      path: '/test',
+      component: LocationSelector
     }
   ]
 });

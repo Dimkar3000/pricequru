@@ -4,6 +4,13 @@
       Αναζητήσατε τον όρο "{{ query }}"
     </span>
     <h2>{{ products.length }} Προϊόντα</h2>
+    <v-btn
+      @click="addProduct"
+      fab
+      icon
+    >
+      <v-icon>add_circle</v-icon>
+    </v-btn>
     <SearchBar />
     <v-layout wrap>
       <v-flex
@@ -49,16 +56,22 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <AddProductModal
+      :open="newProductModalVisible"
+      @closed="newProductModalClosed"
+    />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 
+import AddProductModal from '../components/AddProductModal.vue';
 import SearchBar from '../components/SearchBar.vue';
 
 export default {
   components: {
+    AddProductModal,
     SearchBar
   },
   props: {
@@ -66,6 +79,11 @@ export default {
       default: '',
       type: String
     }
+  },
+  data() {
+    return {
+      newProductModalVisible: false
+    };
   },
   computed: {
     ...mapState({
@@ -75,10 +93,16 @@ export default {
     })
   },
   methods: {
+    addProduct() {
+      this.newProductModalVisible = true;
+    },
     getLocalUrl(product) {
       const urlParts = product.imageUrl.split('/');
       const fileName = urlParts[urlParts.length - 1];
       return `images/${fileName}`;
+    },
+    newProductModalClosed() {
+      this.newProductModalVisible = false;
     },
     viewProject(product) {
       this.$router.push({
