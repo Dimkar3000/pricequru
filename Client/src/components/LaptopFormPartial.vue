@@ -39,7 +39,12 @@
   </div>
 </template>
 <script>
+import ProductFormPartial from '../mixins/ProductFormPartial.vue';
+
 export default {
+  mixins: [
+    ProductFormPartial
+  ],
   data() {
     return {
       product: {

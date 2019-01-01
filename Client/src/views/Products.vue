@@ -13,10 +13,22 @@
     </v-btn>
     <SearchBar />
     <v-layout wrap>
+      <v-pagination
+        :value="page"
+        :length="products.length/perPage"
+        @input="changePage"
+      />
+      <v-select
+        :items="sortOptions"
+        :value="sortBy"
+        label="Ταξινόμηση"
+        :prepend-inner-icon="sortOrderIcon"
+        @change="updateSorting"
+      />
       <v-flex
         xs10
         sm4
-        v-for="(product) in products.filter(p=>p.name.toLowerCase().includes(query.toLowerCase()))"
+        v-for="product in paginatedProducts"
         :key="product.name"
         offset-xs1
         offset-sm4
@@ -55,6 +67,11 @@
           </v-card-text>
         </v-card>
       </v-flex>
+      <v-pagination
+        :value="page"
+        :length="products.length/perPage"
+        @input="changePage"
+      />
     </v-layout>
     <AddProductModal
       :open="newProductModalVisible"
@@ -75,17 +92,47 @@ export default {
     SearchBar
   },
   props: {
+    page: {
+      default: 1,
+      type: Number
+    },
     query: {
       default: '',
+      type: String
+    },
+    sortBy: {
+      default: 'id',
+      type: String
+    },
+    sortOrder: {
+      default: 'asc',
       type: String
     }
   },
   data() {
     return {
-      newProductModalVisible: false
+      newProductModalVisible: false,
+      perPage: 10,
+      sortOptions: [{ value: 'id', text: 'Προεπιλεγμένη Ταξινόμηση' }, { value: 'name', text: 'Όνομα' }, { value: 'price', text: 'Τιμή' }]
     };
   },
   computed: {
+    filteredProducts() {
+      const query = this.query.toLowerCase();
+      return this.products.filter((p) => { return p.name.toLowerCase().includes(query); });
+    },
+    paginatedProducts() {
+      return this.sortedResults.slice((this.page - 1) * this.perPage, this.page * this.perPage);
+    },
+    sortOrderIcon() {
+      return this.sortOrder.toLowerCase() === 'asc' ? 'arrow_drop_up' : 'arrow_drop_down';
+    },
+    sortedResults() {
+      const order = this.sortOrder.toLowerCase() === 'asc' ? 1 : -1;
+      return this.filteredProducts.slice().sort((a, b) => {
+        return (a[this.sortBy] > b[this.sortBy]) ? order : -order;
+      });
+    },
     ...mapState({
       products: (state) => {
         return state.products.all;
@@ -96,6 +143,15 @@ export default {
     addProduct() {
       this.newProductModalVisible = true;
     },
+    changePage(page) {
+      this.$router.push({
+        name: this.$route.name,
+        query: {
+          ...this.$route.query,
+          page
+        }
+      });
+    },
     getLocalUrl(product) {
       const urlParts = product.imageUrl.split('/');
       const fileName = urlParts[urlParts.length - 1];
@@ -103,6 +159,21 @@ export default {
     },
     newProductModalClosed() {
       this.newProductModalVisible = false;
+    },
+    updateSorting(sortBy) {
+      let sortOrder;
+      if (sortBy === this.sortBy) {
+        sortOrder = this.sortOrder.toLowerCase() === 'asc' ? 'desc' : 'asc';
+      } else {
+        sortOrder = this.sortOrder;
+      }
+      this.$router.push({
+        name: this.$route.name,
+        query: {
+          ...this.$route.query,
+          sort: `${sortBy}|${sortOrder}`
+        }
+      });
     },
     viewProject(product) {
       this.$router.push({
@@ -117,6 +188,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.v-pagination {
+  margin: 20px auto;
+}
 .v-card {
   margin-bottom: 50px;
   padding-top: 20px;

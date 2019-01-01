@@ -16,7 +16,7 @@
         <v-icon>close</v-icon>
       </v-btn>
       <v-flex justify-center>
-        <v-form @submit="submitForm">
+        <v-form @submit.prevent="submitForm">
           <v-text-field
             label="Email"
             v-model="email"

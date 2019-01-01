@@ -23,7 +23,10 @@ export default new Router({
       component: Products,
       props: (route) => {
         return {
-          query: route.query.q
+          page: +route.query.page || 1,
+          query: route.query.q,
+          sortBy: route.query.sort ? route.query.sort.split('|')[0] : 'id',
+          sortOrder: route.query.sort ? route.query.sort.split('|')[1] : 'asc'
         };
       }
     },

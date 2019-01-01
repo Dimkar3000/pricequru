@@ -462,7 +462,7 @@
   {
     "imageUrl": "https://a.scdn.gr/images/sku_main_images/015809/15809780/medium_20180919113405_apple_iphone_xs_max_64gb.jpeg",
     "name": "Apple iPhone XS Max (64GB)",
-    "price": 1.128,
+    "price": 1128,
     "specs": {
       "Οθόνη": "6.5\"",
       "RAM": "4GB",
@@ -489,7 +489,7 @@
   {
     "imageUrl": "https://b.scdn.gr/images/sku_main_images/015809/15809762/medium_20180919105619_apple_iphone_xs_64gb.jpeg",
     "name": "Apple iPhone XS (64GB)",
-    "price": 1.029,
+    "price": 1029,
     "specs": {
       "Οθόνη": "5.8\"",
       "RAM": "4GB",
@@ -810,7 +810,7 @@
   {
     "imageUrl": "https://c.scdn.gr/images/sku_main_images/015858/15858774/medium_20180919113336_apple_iphone_xs_max_256gb.jpeg",
     "name": "Apple iPhone XS Μax (256GB)",
-    "price": 1.286,
+    "price": 1286,
     "specs": {
       "Οθόνη": "6.5\"",
       "RAM": "4GB",

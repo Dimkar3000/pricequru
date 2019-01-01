@@ -45,7 +45,7 @@
           <v-divider />
           <component
             :is="additionalFieldsComponent"
-            ref="additionalInfo"
+            @change="updateAdditionalInfo"
           />
           <v-btn type="submit">Προσθηκη</v-btn>
 
@@ -77,7 +77,8 @@ export default {
         description: '',
         name: '',
         tags: []
-      }
+      },
+      productAdditionalInfo: {}
     };
   },
   computed: {
@@ -96,10 +97,13 @@ export default {
     save() {
       const data = {
         ...this.product,
-        ...this.$refs.additionalInfo.product
+        ...this.productAdditionalInfo
       };
       console.log(data);
       alert(JSON.stringify(data));
+    },
+    updateAdditionalInfo(productAdditionalInfo) {
+      this.productAdditionalInfo = productAdditionalInfo;
     }
   },
   props: {
