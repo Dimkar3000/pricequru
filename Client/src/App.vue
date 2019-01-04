@@ -34,11 +34,13 @@
     </v-toolbar>
 
     <v-content>
-      <router-view />
-      <LoginModal
-        :open="loginDialogOpen"
-        @closed="hideLoginDialog"
-      />
+      <v-container>
+        <router-view />
+        <LoginModal
+          :open="loginDialogOpen"
+          @closed="hideLoginDialog"
+        />
+      </v-container>
     </v-content>
   </v-app>
 </template>
@@ -59,6 +61,12 @@ export default {
   computed: {
     ...mapGetters(['isAuthenticated'])
   },
+  mounted() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.setToken({ token });
+    }
+  },
   data() {
     return {
       loginDialogOpen: false
@@ -73,6 +81,7 @@ export default {
         .then(() => {
           console.log('logged out');
           this.logoutAction();
+          localStorage.removeItem('token');
         })
         .catch(() => {
           console.error('logout failed');
@@ -81,7 +90,7 @@ export default {
     showLoginDialog() {
       this.loginDialogOpen = true;
     },
-    ...mapActions({ logoutAction: 'logout' })
+    ...mapActions({ logoutAction: 'logout', setToken: 'setToken' })
   }
 };
 </script>

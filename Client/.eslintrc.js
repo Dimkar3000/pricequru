@@ -11,9 +11,10 @@ module.exports = {
     'arrow-body-style': [2, 'always'],
     'arrow-parens': [2, 'always'],
     'comma-dangle': [0],
-    'no-console': 'off',
-    'no-debugger': 'off',
-    'no-param-reassign': [1]
+    'no-console': [1],
+    'no-debugger': [1],
+    'no-param-reassign': [1],
+    'prefer-destructuring': [0]
   },
 
   parserOptions: {

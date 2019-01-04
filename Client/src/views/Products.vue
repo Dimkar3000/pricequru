@@ -1,30 +1,46 @@
 <template>
   <div>
-    <span>
-      Αναζητήσατε τον όρο "{{ query }}"
-    </span>
-    <h2>{{ products.length }} Προϊόντα</h2>
-    <v-btn
-      @click="addProduct"
-      fab
-      icon
-    >
-      <v-icon>add_circle</v-icon>
-    </v-btn>
+
+    <v-layout justify-center>
+
+      <h2>{{ filteredProducts.length }} Προϊόντα</h2>
+    </v-layout>
+
+    <v-layout justify-start>
+
+      <v-btn
+        @click="addProduct"
+        fab
+        icon
+      >
+        <v-icon>add_circle</v-icon>
+      </v-btn>
+    </v-layout>
+
     <SearchBar />
-    <v-layout wrap>
+    <v-layout justify-center>
       <v-pagination
         :value="page"
-        :length="products.length/perPage"
+        :length="numberOfPages"
         @input="changePage"
       />
-      <v-select
-        :items="sortOptions"
-        :value="sortBy"
-        label="Ταξινόμηση"
-        :prepend-inner-icon="sortOrderIcon"
-        @change="updateSorting"
-      />
+    </v-layout>
+    <v-layout
+      justify-center
+      row
+    >
+      <v-flex shrink>
+        <v-select
+          :items="sortOptions"
+          :value="sortBy"
+          label="Ταξινόμηση"
+          :prepend-inner-icon="sortOrderIcon"
+          @change="updateSorting"
+        />
+      </v-flex>
+    </v-layout>
+    <v-layout wrap>
+
       <v-flex
         xs10
         sm4
@@ -67,9 +83,12 @@
           </v-card-text>
         </v-card>
       </v-flex>
+    </v-layout>
+
+    <v-layout justify-center>
       <v-pagination
         :value="page"
-        :length="products.length/perPage"
+        :length="numberOfPages"
         @input="changePage"
       />
     </v-layout>
@@ -121,6 +140,9 @@ export default {
       const query = this.query.toLowerCase();
       return this.products.filter((p) => { return p.name.toLowerCase().includes(query); });
     },
+    numberOfPages() {
+      return Math.ceil(this.filteredProducts.length / this.perPage);
+    },
     paginatedProducts() {
       return this.sortedResults.slice((this.page - 1) * this.perPage, this.page * this.perPage);
     },
@@ -162,15 +184,18 @@ export default {
     },
     updateSorting(sortBy) {
       let sortOrder;
+      let page = this.page;
       if (sortBy === this.sortBy) {
         sortOrder = this.sortOrder.toLowerCase() === 'asc' ? 'desc' : 'asc';
       } else {
         sortOrder = this.sortOrder;
+        page = 1;
       }
       this.$router.push({
         name: this.$route.name,
         query: {
           ...this.$route.query,
+          page,
           sort: `${sortBy}|${sortOrder}`
         }
       });
@@ -189,6 +214,10 @@ export default {
 
 <style lang="scss" scoped>
 .v-pagination {
+  margin: 20px auto;
+}
+
+.v-select {
   margin: 20px auto;
 }
 .v-card {

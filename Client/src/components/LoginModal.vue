@@ -68,6 +68,7 @@ export default {
           this.setToken({
             token: 'testToken'
           });
+          localStorage.setItem('token', 'testToken');
           this.modalClosed();
         })
         .catch(() => {
