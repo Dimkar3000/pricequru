@@ -11,4 +11,4 @@ const shopSchema = mongoose.Schema({
     
 });
 
-module.exports = mongoose.model('Shop', sessionSchema);
+module.exports = mongoose.model('Shop', shopSchema);

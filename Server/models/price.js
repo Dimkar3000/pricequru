@@ -16,4 +16,4 @@ const priceSchema = mongoose.Schema({
     
 });
 
-module.exports = mongoose.model('Price', sessionSchema);
+module.exports = mongoose.model('Price', priceSchema);
