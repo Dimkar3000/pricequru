@@ -121,7 +121,7 @@ routes.get(`${baseAddress}/prices`, async (req, res) => {
     // Functionality Here
     let mode = sort.toLowerCase()
     let querry = {}
-    let options = {  }
+    let options = {}
 
     // The the sort type
     if (mode == "id|asc") {
@@ -139,56 +139,57 @@ routes.get(`${baseAddress}/prices`, async (req, res) => {
     else {
         return []
     }
-    
+
     let shopQuery = {
         $geoNear: {
             spherical: true,
-            distanceField:"distance",
-            maxDistance:10000, 
+            distanceField: "distance",
+            maxDistance: parseFloat(geoDist) * 1000 ,
+            distanceMultiplier: 0.001,
             near: {
-                type:"Point", 
-                coordinates:[2.01,0.01]
+                type: "Point",
+                coordinates: [parseFloat(geoLng), parseFloat(geoLat)]
             }
         }
     }
-    let shopsDb = await Shop.aggregate([shopQuery,{
-            $match:{
-                "withdrawn":false,
-                
-            }
-        }
-        ,{
-            $project:{_id:1}
-    }])
+    console.log(shopQuery.$geoNear.near)
 
-    
-    if(shops[0] !== undefined){
-        shopsDb = shopsDb.filter(e => e._id in shops).map(e => {return e._id})
+
+    // If GeoQuerry
+    let shopDBQ = [ {$match: {"withdrawn": false,}}, {$project: { _id: 1 }}]
+    if (geoQ.some(e => { return e !== undefined })) {
+        shopDBQ.unshift(shopQuery)
+    }
+    let shopsDb = await Shop.aggregate(shopDBQ)
+
+
+    if (shops[0] !== undefined) {
+        shopsDb = shopsDb.filter(e => e._id in shops).map(e => { return e._id })
     }
     else {
-        shopsDb = shopsDb.map(e => {return e._id})
+        shopsDb = shopsDb.map(e => { return e._id })
     }
     // console.log(shops)
-    
+
     let popoulateOptions = {
-        path:'productId shopId',
-        match:{withdrawn:false},
-        select:'_id name tags address'
+        path: 'productId shopId',
+        match: { withdrawn: false },
+        select: '_id name tags address'
     }
     let findOptions = {
         shopId: {
             $in: shopsDb
         },
-        $and:[
+        $and: [
             {
-                dateFrom:{
-                    $lte:dateTo
+                dateFrom: {
+                    $lte: dateTo
                 }
-            }, 
+            },
             {
                 dateTo:
                 {
-                    $gte:dateFrom
+                    $gte: dateFrom
                 }
             }
         ]
@@ -196,41 +197,41 @@ routes.get(`${baseAddress}/prices`, async (req, res) => {
     // console.log(dateFrom,dateTo)
 
     Price.find(findOptions).populate(popoulateOptions).skip(start)
-    .limit(count).sort(options.sort).exec((err,doc) => {
-        // Check productId in products
-        let final = doc.filter(e => {return e.productId !== null})
-        if(products[0] !== undefined) {
-            final = final.filter(e => {
-                products = products.map(JSON.stringify)
-                return products.indexOf(JSON.stringify(e.productId._id)) > -1
-            })
-        }
-        // Check any productTags exits 
-        if(tags[0] !== undefined) {
-            final = final.filter(x => {
-                return x.productId.tags.some(e => {
-                    return tags.indexOf(e) > -1
-                }) || x.shopId.tags.some(e => {
-                    return tags.indexOf(e) > -1
-                }) 
-            })
-        } 
-        let result = {
-            start,
-            count,
-            total:final.length,
-            prices: []
-        }
-        result.prices = sanitizePrices(final).then(r => {res.json(r).end()})
-    })
-    
+        .limit(count).sort(options.sort).exec((err, doc) => {
+            // Check productId in products
+            let final = doc.filter(e => { return e.productId !== null })
+            if (products[0] !== undefined) {
+                final = final.filter(e => {
+                    products = products.map(JSON.stringify)
+                    return products.indexOf(JSON.stringify(e.productId._id)) > -1
+                })
+            }
+            // Check any productTags exits 
+            if (tags[0] !== undefined) {
+                final = final.filter(x => {
+                    return x.productId.tags.some(e => {
+                        return tags.indexOf(e) > -1
+                    }) || x.shopId.tags.some(e => {
+                        return tags.indexOf(e) > -1
+                    })
+                })
+            }
+            let result = {
+                start,
+                count,
+                total: final.length,
+                prices: []
+            }
+            result.prices = sanitizePrices(final).then(r => { res.json(r).end() })
+        })
+
 })
 
 async function sanitizePrices(final) {
     let r = final.map(e => {
         return {
-            price:e.price,
-            date:new Date().toISOString().split('T')[0],
+            price: e.price,
+            date: new Date().toISOString().split('T')[0],
             productName: e.productId.name,
             productId: e.productId._id,
             productTags: e.productId.tags,
