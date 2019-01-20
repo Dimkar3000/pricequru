@@ -1,13 +1,31 @@
 'use strict'
-var routes = require('express').Router();
+const routes = require('express').Router()
+const mongoose = require('mongoose')
+const Product = require('../models/product')
+const responses = require('../DTOs/responses')
+const Session = require('../models/session')
 
-routes.get('/',(req,res) => {
+function sanitizeProduct(p) {
+    return {
+        id:p._id,
+        name:p.name,
+        description:p.description,
+        tags:p.tags,
+        withdrawn:p.withdrawn
+    }
+}
+
+routes.get('/',async (req,res) => {
     //console.log(req.query)
-    let start = req.query.start;
-    let count = req.query.count;
-    let sort = req.query.sort;
-    let status = req.query.status;
-
+    let start = parseInt(req.query.start,10)
+    if(!start) start = 0
+    let count = parseInt(req.query.count,10)
+    if(!count) count = 20
+    let status = req.query.status
+    if(!status) status = "ACTIVE"
+    let sort = req.query.sort
+    if(!sort) sort = "id|DESC"
+    
     let response = {
         start: start, 
         count: count,
@@ -15,22 +33,57 @@ routes.get('/',(req,res) => {
         products: []
     }
     // Functionality Here
+    let mode = sort.toLowerCase()
+    let querry = {}
+    let option = {offset:start,limit:count}
     
+    // The the sort type
+    if( mode == "id|asc"){
+        Object.assign(option,{sort:{_id:"asc"}})
+    }
+    else if(mode == "id|desc"){
+        Object.assign(option,{sort:{_id:"desc"}})
+    }
+    else if(mode == "name|asc"){
+        Object.assign(option,{sort:{name:"asc"}})
+    }
+    else if(mode == "name|desc"){
+        Object.assign(option,{sort:{name:"desc"}})
+    }
+    else {
+        return []
+    }
 
-    res.json(response).end()
-});
+    // Add to the querry the status filter
+    status = status.toLowerCase()
+    if(status == "active"){
+        Object.assign(querry,{withdrawn:false})
+    }
+    else if(status == "withdrawn") {
+        Object.assign(querry,{withdrawn:true})
+    }
+    //console.log(querry)
+    await Product.paginate(querry,option).then(result =>{
+        //console.log(result)
+        
+        response.products = result.docs.map(sanitizeProduct)
+        response.total = result.total
+        res.json(response).end()
+    })
+
+})
 
 routes.post('/',(req,res) => {
-    console.log(req.body);
-    let name = req.body.name;
-    let description = req.body.description;
-    let category = req.body.category;
-    let tags = req.body.tags;
-    let withdrawn = req.body.withdrawn;
-
-
+    //console.log(req.body)
+    let name = req.body.name
+    let description = req.body.description
+    let category = req.body.category
+    let tags = req.body.tags
+    let withdrawn = req.body.withdrawn
+    let id = new mongoose.mongo.ObjectId()
+  
     let response = {
-        id:"long id string",
+        id,
         name,
         description,
         category,
@@ -45,28 +98,213 @@ routes.post('/',(req,res) => {
         3. Else return error code
     */
 
-    res.json(response).end()
-});
+    if(!req.header('X-OBSERVATORY-AUTH')){
+        res.status(401).end()
+        return
+    }
+
+    Session.findOne({_id:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
+        if(err || document==null){
+            res.status(401).end()
+            return
+        }
+        // User Authorized
+        let product = new Product({
+            _id: id,
+            name,
+            description,
+            category,
+            tags,
+            withdrawn
+        })
+        product.save()
+
+        res.json(response).end()
+
+    })
+
+    
+})
 
 routes.get('/:id',(req,res) => {
-    console.log("GET: "+ req.params.id)
-    res.end();
-});
+     Product.findOne({_id:req.params.id},(err,product) => {
+        if(err){
+            res.status(500)
+            res.end()
+        }
+        else if(product == null) {
+            res.status(404)
+            res.end()
+        }
+        else {
+            var result = sanitizeProduct(product)
+            res.json(result).end()
+        }
+    })
+})
 
 
 routes.put('/:id',(req,res) => {
-    console.log("PUT: "+ req.params.id)
-    res.end();
-});
+    //console.log("PUT: "+ req.params.id)
+    let name = req.body.name
+    let description = req.body.description
+    let category = req.body.category
+    let tags = req.body.tags
+    let withdrawn = req.body.withdrawn
+    let id = req.params.id
+
+    //console.log({name,description,category,tags,withdrawn})
+    if(name == null || description == null || category == null || tags == null || withdrawn == null){
+        res.status(404).end()
+    }
+
+    if(!req.header('X-OBSERVATORY-AUTH')){
+        res.status(401).end()
+        return
+    }
+
+    Session.findOne({_id:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
+        if(err || document==null){
+            res.status(401).end()
+            return
+        }
+    
+        Product.findOneAndUpdate({_id:id}, {
+            name,
+            description,
+            category,
+            tags,
+            withdrawn
+        },(err,product) => {
+            if(err){
+                res.status(500)
+                res.end()
+            }
+            else if(product == null) {
+                res.status(404)
+                res.end()
+            }
+            else{
+                var result = {id,name,description,category,tags,withdrawn}
+                res.json(result).end()
+            }
+
+        })
+    })
+})
 
 routes.patch('/:id',(req,res) => {
-    console.log("PATCH: "+ req.params.id)
-    res.end();
-});
+    //console.log("PATCH: "+ req.params.id)
+    let name = req.body.name
+    let description = req.body.description
+    let category = req.body.category
+    let tags = req.body.tags
+    let withdrawn = req.body.withdrawn
+    let id = req.params.id
+
+    if(!req.header('X-OBSERVATORY-AUTH')){
+        res.status(401).end()
+        return
+    }
+    if(name == null && description == null && category == null && tags == null && withdrawn == null){
+        res.status(404).end()
+    }
+
+    Session.findOne({_id:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
+        if(err || document==null){
+            res.status(401).end()
+            return
+        }
+    
+
+        //console.log({name,description,category,tags,withdrawn})
+        
+        let update = {}
+        if(name != null){
+            Object.assign(update,{name})
+        } 
+        if(description != null){
+            Object.assign(update,{description})
+        } 
+        if(category != null){
+            Object.assign(update,{category})
+        } 
+        if(tags != null){
+            Object.assign(update,{tags})
+        } 
+        if(withdrawn != null){
+            Object.assign(update,{withdrawn})
+        } 
+        if(Object.keys(update).length > 1) {
+            res.status(404).end()
+            return
+        }
+
+        Product.findOneAndUpdate({_id:id}, update,(err,product) => {
+            if(err){
+                res.status(500)
+                res.end()
+            }
+            else if(product == null) {
+                res.status(404)
+                res.end()
+            }
+            else{
+                let result = {}
+                result.id = id 
+                result.name = name
+                result.description = description
+                result.category = category
+                result.tags = tags
+                result.withdrawn = withdrawn
+                if(result.name == null){
+                    result.name = product.name
+                }
+                if(result.description == null){
+                    result.description = product.description
+                }
+                if(result.category == null){
+                    result.category = product.category
+                }
+                if(result.tags == null){
+                    result.tags = product.tags
+                }
+                if(result.withdrawn == null){
+                    result.withdrawn = product.withdrawn
+                }
+                res.json(result).end()
+            }
+
+        })
+    })
+})
 
 routes.delete('/:id',(req,res) => {
-    console.log("DELETE: "+ req.params.id)
-    res.end();
-});
+    let id = req.params.id
+    // if he is a user
+    if(!req.header('X-OBSERVATORY-AUTH')){
+        res.status(401).end()
+        return
+    }
 
-module.exports = routes;
+    Session.findOne({_id:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
+        if(err || document==null){
+            res.status(401).end()
+            return
+        }
+        if(!document.isAdmin){
+            Product.findOneAndUpdate({_id:id}, {withdrawn:true},(err,f) => {
+                res.json(responses.OK).end()
+            })
+        }
+        else{
+            // if he is a admin
+            Product.findOneAndDelete({_id:req.params.id},(err,f) => {
+                res.json(responses.OK).end()
+            })
+        }
+        
+    })
+})
+
+module.exports = routes

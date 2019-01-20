@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
 const productSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -9,5 +10,5 @@ const productSchema = mongoose.Schema({
     withdrawn: Boolean
 
 })
-
+productSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Product', productSchema);

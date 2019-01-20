@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "./node_modules/nodemon/bin/nodemon.js ./index.js",
+    "start": "node ./node_modules/nodemon/bin/nodemon.js ./index.js",
     "test": "mocha --exit"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "https": "^1.0.0",
     "mongodb": "^3.1.10",
     "mongoose": "^5.4.1",
+    "mongoose-paginate": "^5.0.3",
     "utf8": "^3.0.0"
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
 const priceSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -16,4 +17,5 @@ const priceSchema = mongoose.Schema({
     
 });
 
+priceSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Price', priceSchema);
