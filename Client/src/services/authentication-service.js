@@ -1,23 +1,38 @@
-const login = (email, password) => {
-  if (!email.trim() || !password.trim()) {
-    return Promise.reject();
-  }
-  return Promise.resolve();
-};
+import { request } from './agent';
 
-const logout = () => {
-  return Promise.resolve();
-};
+function login(password, username) {
+  const data = {
+    password,
+    username
+  };
+  return request({
+    method: 'POST',
+    url: 'login',
+    data
+  });
+}
 
-const register = (email, password) => {
-  if (!email.trim() || !password.trim()) {
-    return Promise.reject();
-  }
-  return Promise.resolve();
-};
+function logout(token) {
+  return request({
+    method: 'POST',
+    url: 'logout',
+    token
+  });
+}
 
-export default {
-  login,
-  logout,
-  register
-};
+function register(password, username) {
+  const data = {
+    password,
+    username
+  };
+  return request({
+    method: 'POST',
+    url: 'register',
+    data
+  });
+}
+
+const authenticationService = { login, logout, register };
+
+export default authenticationService;
+

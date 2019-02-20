@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 var fs = require('fs');
 var express = require('express');
+var cors = require('cors');
+
 var routes = require('./routes');
 var mongoose = require('mongoose');
 var User = require('./models/user');
@@ -8,13 +10,19 @@ var User = require('./models/user');
 var bodyParser = require('body-parser');
 var connectionString = `mongodb://sa:${process.env.MONGO_PASS}@pricegurudb-shard-00-00-f7dah.gcp.mongodb.net:27017,pricegurudb-shard-00-01-f7dah.gcp.mongodb.net:27017,pricegurudb-shard-00-02-f7dah.gcp.mongodb.net:27017/${process.env.DB_NAME}?ssl=true&replicaSet=PriceguruDB-shard-0&authSource=admin&retryWrites=true`;
 mongoose.connect(connectionString,{useCreateIndex: true,useNewUrlParser: true});
-
 var app = express();
 var port = process.env.PORT || 433;
  
 if (app.get('env') === 'production') {
   app.set('trust proxy', 1) // trust first proxy
 }
+
+app.use(cors());
+
+app.use((req,res,next)=>{
+  res.set('Access-Control-Expose-Headers','X-OBSERVATORY-AUTH');
+  next();
+});
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded

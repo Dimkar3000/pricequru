@@ -104,6 +104,7 @@ import { mapState } from 'vuex';
 
 import AddProductModal from '../components/AddProductModal.vue';
 import SearchBar from '../components/SearchBar.vue';
+import productsService from '../services/products-service';
 
 export default {
   components: {
@@ -134,6 +135,9 @@ export default {
       perPage: 10,
       sortOptions: [{ value: 'id', text: 'Προεπιλεγμένη Ταξινόμηση' }, { value: 'name', text: 'Όνομα' }, { value: 'price', text: 'Τιμή' }]
     };
+  },
+  mounted() {
+    productsService.getAll().then((res) => { return console.log(res.data); });
   },
   computed: {
     filteredProducts() {

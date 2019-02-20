@@ -8,7 +8,7 @@ npm install
 
 ## Setup ENV Variables
 
-Copy `.env.local.example` to a file named `.env.local` and fill in the missing variables.
+Fill your environment variables to `env.production` for production builds nad `env.development` for development.
 
 ### Compiles and hot-reloads for development
 

@@ -48,6 +48,48 @@ routes.post(`${baseAddress}/login`, (req, res) => {
     })
 })
 
+routes.post(`${baseAddress}/register`, async (req, res) => {
+    if (req.header('X-OBSERVATORY-AUTH')) {
+        res.status(401).end();
+        return;
+    }
+    try {
+        const existingUser = await User.findOne({ username: req.body.username });
+
+        if(existingUser) {
+            res.status(400).send('Username already exists.');
+            return;
+        }
+
+        let id = new mongoose.mongo.ObjectId();
+        let user = new User({
+            _id: id,
+            username: req.body.username,
+            password: req.body.password,
+            isAdmin: false,
+
+        });
+
+        await user.save();
+
+        id= new mongoose.mongo.ObjectId();
+
+        let session = new Session({
+            _id: id,
+            username: user.username,
+            isAdmin: false,
+        });
+        await session.save();
+        res.set('X-OBSERVATORY-AUTH', id);
+
+        res.json(responses.OK);
+    }catch(err) {
+        console.error(err);
+        res.status(500).send();
+    }
+});
+           
+
 routes.post(`${baseAddress}/logout`, (req, res) => {
     let auth = req.header('X-OBSERVATORY-AUTH')
     if (auth != null) {

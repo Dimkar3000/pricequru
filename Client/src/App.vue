@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 
 import HomePage from './components/HomePage.vue';
 import LoginModal from './components/LoginModal.vue';
@@ -59,7 +59,10 @@ export default {
     LoginModal
   },
   computed: {
-    ...mapGetters(['isAuthenticated'])
+    ...mapGetters(['isAuthenticated']),
+    ...mapState({
+      token: (state) => { return state.user.token; }
+    })
   },
   mounted() {
     const token = localStorage.getItem('token');
@@ -77,7 +80,7 @@ export default {
       this.loginDialogOpen = false;
     },
     logout() {
-      authenticationService.logout()
+      authenticationService.logout(this.token)
         .then(() => {
           console.log('logged out');
           this.logoutAction();

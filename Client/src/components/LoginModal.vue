@@ -18,8 +18,8 @@
       <v-flex justify-center>
         <v-form @submit.prevent="submitForm">
           <v-text-field
-            label="Email"
-            v-model="email"
+            label="Όνομα Χρήστη"
+            v-model="username"
             required
           />
           <v-text-field
@@ -32,7 +32,11 @@
             :label="switchLabel"
             v-model="oldAccount"
           />
-          <v-btn type="submit">{{ submitButtonLabel }}</v-btn>
+          <v-btn
+            type="submit"
+            :loading="busy"
+            :disabled="busy">{{ submitButtonLabel }}
+          </v-btn>
         </v-form>
       </v-flex>
     </v-card>
@@ -41,15 +45,15 @@
 
 <script>
 import { mapActions } from 'vuex';
-
 import authenticationService from '../services/authentication-service';
 
 export default {
   data() {
     return {
-      email: '',
+      busy: false,
+      username: '',
       password: '',
-      oldAccount: true,
+      oldAccount: true
     };
   },
   computed: {
@@ -62,30 +66,44 @@ export default {
   },
   methods: {
     login() {
-      authenticationService.login(this.email, this.password)
-        .then(() => {
-          console.log('logged in');
-          this.setToken({
-            token: 'testToken'
-          });
-          localStorage.setItem('token', 'testToken');
+      this.busy = true;
+      authenticationService.login(this.password, this.username)
+        .then((res) => {
+          console.log('logged in.');
+          this.handleSuccess(res);
           this.modalClosed();
         })
-        .catch(() => {
+        .catch((err) => {
           console.error('login failed');
+          alert(err.message);
+          this.snackbarText = err.message;
+          this.snackbarColor = 'error';
+          this.snackbarVisible = true;
+        }).finally(() => {
+          this.busy = false;
         });
     },
-
     modalClosed() {
       this.$emit('closed');
     },
+    handleSuccess(res) {
+      const token = res.headers['x-observatory-auth'];
+      this.setToken({
+        token
+      });
+      localStorage.setItem('token', token);
+    },
     register() {
-      authenticationService.register(this.email, this.password)
-        .then(() => {
+      authenticationService.register(this.password, this.username)
+        .then((res) => {
           console.log('registered');
+          this.handleSuccess(res);
+          this.modalClosed();
         })
         .catch(() => {
           console.error('register failed');
+        }).finally(() => {
+          this.busy = false;
         });
     },
     submitForm() {
