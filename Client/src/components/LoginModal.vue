@@ -73,12 +73,8 @@ export default {
           this.handleSuccess(res);
           this.modalClosed();
         })
-        .catch((err) => {
+        .catch(() => {
           console.error('login failed');
-          alert(err.message);
-          this.snackbarText = err.message;
-          this.snackbarColor = 'error';
-          this.snackbarVisible = true;
         }).finally(() => {
           this.busy = false;
         });
