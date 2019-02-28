@@ -1,14 +1,55 @@
 import { request } from './agent';
 
-function getAll(token) {
+function createProduct({
+  name,
+  description,
+  category,
+  tags
+}, token) {
   return request({
-    method: 'GET',
+    method: 'POST',
     url: 'products',
+    data: {
+      name,
+      description,
+      category,
+      tags,
+      withdrawn: false
+    },
     token
   });
 }
+
+function getProducts({
+  start,
+  count,
+  status,
+  sort
+}, token) {
+  return request({
+    method: 'GET',
+    url: 'products',
+    params: {
+      start: start || 0,
+      count,
+      status,
+      sort,
+      withDrawn: false
+    },
+    token
+  });
+}
+
+function getProduct(id) {
+  return request({
+    method: 'GET',
+    url: `products/${id}`
+  });
+}
 const productsService = {
-  getAll
+  createProduct,
+  getProducts,
+  getProduct
 };
 
 export default productsService;

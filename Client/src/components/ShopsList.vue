@@ -8,7 +8,9 @@
       slot="items"
       slot-scope="props"
     >
-      <td>{{ props.item.name }}</td>
+      <td
+        @click="view(props.item.id);"
+      >{{ props.item.name }}</td>
       <td class="text-xs-right">{{ props.item.phoneNumber }}</td>
       <td class="text-xs-right">{{ props.item.long }}</td>
       <td class="text-xs-right">{{ props.item.lat }}</td>
@@ -39,6 +41,16 @@ export default {
         { text: 'Διεύθυνση', value: 'address' }
       ]
     };
+  },
+  methods: {
+    view(id) {
+      this.$router.push({
+        name: 'shop',
+        params: {
+          id
+        }
+      });
+    }
   }
 };
 </script>

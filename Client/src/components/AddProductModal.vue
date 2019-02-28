@@ -47,7 +47,9 @@
             :is="additionalFieldsComponent"
             @change="updateAdditionalInfo"
           />
-          <v-btn type="submit">Προσθηκη</v-btn>
+          <v-btn
+            :loading="busy"
+            type="submit">Προσθηκη</v-btn>
 
         </v-form>
       </v-flex>
@@ -57,8 +59,11 @@
 
 <script>
 
+import { mapState } from 'vuex';
 import LaptopFormPartial from './LaptopFormPartial.vue';
 import SmartphoneFormPartial from './SmartphoneFormPartial.vue';
+
+import productsService from '../services/products-service';
 
 export default {
   components: {
@@ -67,6 +72,7 @@ export default {
   },
   data() {
     return {
+      busy: false,
       categories:
         [
           { text: 'Laptop', value: 'laptop' },
@@ -88,19 +94,37 @@ export default {
         case 'smartphone': return 'SmartphoneFormPartial';
         default: return '';
       }
-    }
+    },
+    ...mapState({ token: (state) => { return state.user.token; } })
+
   },
   methods: {
     modalClosed() {
       this.$emit('closed');
     },
-    save() {
+    async save() {
+      if (this.busy) {
+        return;
+      }
+      this.busy = false;
       const data = {
         ...this.product,
         ...this.productAdditionalInfo
       };
       console.log(data);
-      alert(JSON.stringify(data));
+      try {
+        const product = (await productsService.createProduct(data, this.token)).data;
+        this.$router.push({
+          name: 'product',
+          params: {
+            id: product.id
+          }
+        });
+      } catch (err) {
+        console.error(err);
+      } finally {
+        this.busy = false;
+      }
     },
     updateAdditionalInfo(productAdditionalInfo) {
       this.productAdditionalInfo = productAdditionalInfo;

@@ -26,7 +26,8 @@ export default new Router({
           page: +route.query.page || 1,
           query: route.query.q,
           sortBy: route.query.sort ? route.query.sort.split('|')[0] : 'id',
-          sortOrder: route.query.sort ? route.query.sort.split('|')[1] : 'asc'
+          sortOrder: route.query.sort ? route.query.sort.split('|')[1] : 'asc',
+          status: route.query.status || 'active'
         };
       }
     },
@@ -39,7 +40,12 @@ export default new Router({
     {
       path: '/shops',
       name: 'shops',
-      component: Shops
+      component: Shops,
+      props: (route) => {
+        return {
+          page: +route.query.page || 1
+        };
+      }
     },
     {
       path: '/shops/:id',

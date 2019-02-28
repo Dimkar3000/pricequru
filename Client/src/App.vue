@@ -8,12 +8,14 @@
       <v-btn
         flat
         to='/products'
+        exact
       >
         Προϊοντα
       </v-btn>
       <v-btn
         flat
         to='/shops'
+        exact
       >
         Καταστηματα
       </v-btn>
@@ -107,5 +109,29 @@ export default {
   text-decoration: none;
   color: inherit;
 }
+
+.v-progress-circular {
+  margin: 15px auto;
+}
+
+.loading-container {
+  text-align: center;
+}
+
+.v-card {
+  margin-bottom: 50px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+
+  &__title {
+    justify-content: center;
+  }
+}
+
+h2 {
+  text-align: center;
+}
+
 </style>
 

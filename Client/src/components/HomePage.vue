@@ -19,7 +19,7 @@
       </v-flex>
     </v-layout>
 
-    <SearchBar />
+    <!-- <SearchBar /> -->
   </v-container>
 </template>
 

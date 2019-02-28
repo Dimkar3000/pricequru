@@ -1,41 +1,183 @@
 <template>
   <div>
-    <h2> {{ shops.length }} Καταστήματα</h2>
-    <v-tabs v-model="activeTab">
-      <v-tab key="1">Λιστα</v-tab>
-      <v-tab key="2">Χαρτης</v-tab>
-      <v-tab-item key="1">
+    <v-layout justify-start>
 
-        <ShopsList :shops="shops" />
-      </v-tab-item>
-      <v-tab-item>
-        <ShopsMap :shops="shops" />
-      </v-tab-item>
-    </v-tabs>
+      <v-btn
+        v-if="isAuthenticated"
+        @click="addShop"
+        fab
+        icon
+      >
+        <v-icon>add_circle</v-icon>
+      </v-btn>
+    </v-layout>
 
+    <!-- <SearchBar /> -->
+    <v-layout justify-center>
+      <v-pagination
+        :value="page"
+        :length="numberOfPages"
+        @input="changePage"
+      />
+    </v-layout>
+    <v-layout
+      justify-center
+      row
+    >
+      <!-- <v-flex shrink>
+        <v-select
+          :items="sortOptions"
+          :value="sortBy"
+          label="Ταξινόμηση"
+          :prepend-inner-icon="sortOrderIcon"
+          @change="updateSorting"
+        />
+        <v-select
+          :items="statusOptions"
+          :value="status"
+          label="Κατάσταση Προιόντος"
+          @change="updateStatusOptions"
+        />
+      </v-flex> -->
+    </v-layout>
+    <v-flex
+      xs10
+      sm4
+      offset-xs1
+      offset-sm4
+      class="loading-container"
+      v-if="loading"
+    >
+      <v-progress-circular indeterminate />
+    </v-flex>
+    <v-layout
+      wrap
+      v-if="fetchedData && fetchedData.shops"
+    >
+
+      <v-flex
+        v-for="shop in fetchedData.shops"
+        :key="shop.id"
+        xs10
+        sm4
+        offset-xs1
+        offset-sm4
+      >
+        <v-card
+          @click="viewShop(shop.id)"
+          class="clickable"
+        >
+          <v-card-title>{{ shop.name }}</v-card-title>
+          <v-card-text>{{ shop.category }}</v-card-text>
+          <v-card-text>{{ shop.description }}</v-card-text>
+          <v-chip
+            v-for="tag in shop.tags"
+            :key="tag"
+            outline
+          >
+            {{ tag }}
+          </v-chip>
+        </v-card>
+      </v-flex>
+    </v-layout>
+    <v-layout justify-center>
+      <v-pagination
+        :value="page"
+        :length="numberOfPages"
+        @input="changePage"
+      />
+    </v-layout>
+    <AddShopModal
+      :open="newShopModalVisible"
+      @closed="newShopModalClosed"
+    />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
-import ShopsList from '../components/ShopsList.vue';
-import ShopsMap from '../components/ShopsMap.vue';
+import AddShopModal from '../components/AddShopModal.vue';
+import shopsService from '../services/shops-service';
+
+const shopsPerPage = 1;
 
 export default {
+  props: {
+    page: {
+      required: true,
+      type: Number
+    }
+  },
+  name: 'Shops',
   components: {
-    ShopsList,
-    ShopsMap
+    AddShopModal
   },
   data() {
     return {
-      activeTab: null,
+      fetchedData: null,
+      loading: false,
+      newShopModalVisible: false,
+      numberOfPages: 1
     };
   },
   computed: {
-    ...mapState({
-      shops: (state) => { return state.shops.all; }
-    })
+    ...mapGetters(['isAuthenticated'])
+  },
+  mounted() {
+    this.fetchData();
+  },
+  watch: {
+    page() {
+      this.fetchData();
+    }
+  },
+  methods: {
+    addShop() {
+      this.newShopModalVisible = true;
+    },
+    async fetchData() {
+      this.loading = true;
+      try {
+        const data = (await shopsService.getShops({
+          count: shopsPerPage,
+          start: shopsPerPage * (this.page - 1),
+
+        })).data;
+        this.numberOfPages = Math.ceil(data.total / shopsPerPage);
+        this.fetchedData = data;
+      } catch (err) {
+        console.error(err);
+      } finally {
+        this.loading = false;
+      }
+    },
+    changePage(page) {
+      this.$router.push({
+        name: this.$route.name,
+        query: {
+          ...this.$route.query,
+          page
+        }
+      });
+    },
+    newShopModalClosed() {
+      this.newShopModalVisible = false;
+    },
+    viewShop(id) {
+      this.$router.push({
+        name: 'shop',
+        params: {
+          id
+        }
+      });
+    }
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.v-pagination {
+  margin-bottom: 30px;
+}
+</style>

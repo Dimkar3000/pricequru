@@ -5,7 +5,7 @@ const agent = axios.create({
 });
 
 const request = ({
-  method, url, data, token
+  method, url, data, params, token
 }) => {
   const headers = {};
   if (token) {
@@ -15,7 +15,8 @@ const request = ({
     url,
     method,
     data,
-    headers
+    headers,
+    params
   });
 };
 

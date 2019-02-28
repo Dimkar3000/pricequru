@@ -1,14 +1,10 @@
 <template>
   <div>
 
-    <v-layout justify-center>
-
-      <h2>{{ filteredProducts.length }} Προϊόντα</h2>
-    </v-layout>
-
     <v-layout justify-start>
 
       <v-btn
+        v-if="isAuthenticated"
         @click="addProduct"
         fab
         icon
@@ -17,7 +13,7 @@
       </v-btn>
     </v-layout>
 
-    <SearchBar />
+    <!-- <SearchBar /> -->
     <v-layout justify-center>
       <v-pagination
         :value="page"
@@ -37,54 +33,54 @@
           :prepend-inner-icon="sortOrderIcon"
           @change="updateSorting"
         />
+        <v-select
+          :items="statusOptions"
+          :value="status"
+          label="Κατάσταση Προιόντος"
+          @change="updateStatusOptions"
+        />
       </v-flex>
     </v-layout>
-    <v-layout wrap>
+    <v-flex
+      xs10
+      sm4
+      offset-xs1
+      offset-sm4
+      class="loading-container"
+      v-if="loading"
+    >
+      <v-progress-circular indeterminate />
+    </v-flex>
+    <v-layout
+      wrap
+      v-if="fetchedData.products"
+    >
 
       <v-flex
+        v-for="product in fetchedData.products"
+        :key="product.id"
         xs10
         sm4
-        v-for="product in paginatedProducts"
-        :key="product.name"
         offset-xs1
         offset-sm4
       >
-        <v-card>
-          <v-img
-            :src="getLocalUrl(product)"
-            contain
-            height="200px"
-            class="clickable"
-            @click="viewProject(product)"
-          />
-          <v-card-title
-            primary-title
-            class="clickable product-name"
-            @click="viewProject(product)"
-          >{{ product.name }}</v-card-title>
-          <v-card-text>
-            <div
-              v-for="key in Object.keys(product.specs)"
-              :key="key"
-              class="spec"
-            >
-              <span>{{ key }}:</span>
-              <span> {{ product.specs[key] }}</span>
-            </div>
-          </v-card-text>
-          <v-rating
-            :value="5*Math.random()"
-            readonly
-            half-increments
-          />
-
-          <v-card-text>
-            <span class="product-price">{{ product.price }}€</span>
-          </v-card-text>
+        <v-card
+          @click="viewProduct(product.id)"
+          class="clickable"
+        >
+          <v-card-title>{{ product.name }}</v-card-title>
+          <v-card-text>{{ product.category }}</v-card-text>
+          <v-card-text>{{ product.description }}</v-card-text>
+          <v-chip
+            v-for="tag in product.tags"
+            :key="tag"
+            outline
+          >
+            {{ tag }}
+          </v-chip>
         </v-card>
       </v-flex>
     </v-layout>
-
     <v-layout justify-center>
       <v-pagination
         :value="page"
@@ -100,12 +96,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 import AddProductModal from '../components/AddProductModal.vue';
 import SearchBar from '../components/SearchBar.vue';
 import productsService from '../services/products-service';
 
+const productsPerPage = 15;
 export default {
   components: {
     AddProductModal,
@@ -127,45 +124,63 @@ export default {
     sortOrder: {
       default: 'asc',
       type: String
+    },
+    status: {
+      default: 'active',
+      type: String
     }
   },
   data() {
     return {
+      loading: false,
       newProductModalVisible: false,
       perPage: 10,
-      sortOptions: [{ value: 'id', text: 'Προεπιλεγμένη Ταξινόμηση' }, { value: 'name', text: 'Όνομα' }, { value: 'price', text: 'Τιμή' }]
+      sortOptions: [
+        { value: 'id', text: 'ID' },
+        { value: 'name', text: 'Όνομα' }
+      ],
+      fetchedData: {},
+      statusOptions: [
+        { value: 'all', text: 'Όλα' },
+        { value: 'active', text: 'Ενεργά' },
+        { value: 'withdrawn', text: 'Αποσυρμένα' }],
+      numberOfPages: 1
     };
   },
+  watch: {
+    $route() {
+      this.fetchProducts();
+    }
+  },
   mounted() {
-    productsService.getAll().then((res) => { return console.log(res.data); });
+    this.fetchProducts();
   },
   computed: {
-    filteredProducts() {
-      const query = this.query.toLowerCase();
-      return this.products.filter((p) => { return p.name.toLowerCase().includes(query); });
-    },
-    numberOfPages() {
-      return Math.ceil(this.filteredProducts.length / this.perPage);
-    },
-    paginatedProducts() {
-      return this.sortedResults.slice((this.page - 1) * this.perPage, this.page * this.perPage);
-    },
     sortOrderIcon() {
       return this.sortOrder.toLowerCase() === 'asc' ? 'arrow_drop_up' : 'arrow_drop_down';
     },
-    sortedResults() {
-      const order = this.sortOrder.toLowerCase() === 'asc' ? 1 : -1;
-      return this.filteredProducts.slice().sort((a, b) => {
-        return (a[this.sortBy] > b[this.sortBy]) ? order : -order;
-      });
-    },
     ...mapState({
-      products: (state) => {
-        return state.products.all;
-      }
+      ...mapGetters(['isAuthenticated'])
     })
   },
   methods: {
+    fetchProducts() {
+      this.loading = true;
+      productsService.getProducts({
+        start: productsPerPage * (this.page - 1),
+        sort: `${this.sortBy}|${this.sortOrder}`,
+        count: this.perPage,
+        status: this.status
+      }).then((res) => {
+        console.log(res.data);
+        this.fetchedData = res.data;
+        this.numberOfPages = Math.ceil(res.data.total / productsPerPage);
+      }).catch((err) => {
+        console.error(err);
+      }).finally(() => {
+        this.loading = false;
+      });
+    },
     addProduct() {
       this.newProductModalVisible = true;
     },
@@ -204,11 +219,20 @@ export default {
         }
       });
     },
-    viewProject(product) {
+    updateStatusOptions(status) {
+      this.$router.push({
+        name: this.$route.name,
+        query: {
+          ...this.$route.query,
+          status
+        }
+      });
+    },
+    viewProduct(id) {
       this.$router.push({
         name: 'product',
         params: {
-          id: product.id
+          id
         }
       });
     }
@@ -225,14 +249,6 @@ export default {
   margin: 20px auto;
 }
 .v-card {
-  margin-bottom: 50px;
-  padding-top: 20px;
-  text-align: center;
-
-  &__title {
-    justify-content: center;
-  }
-
   .product-name {
     font-size: 2rem;
   }
