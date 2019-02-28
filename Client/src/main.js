@@ -7,6 +7,8 @@ import './plugins/vuetify';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import { setUnauthorizedHandler } from './services/agent';
+
 
 Vue.config.productionTip = false;
 
@@ -17,6 +19,8 @@ Vue.use(VueGoogleMaps, {
     key: process.env.VUE_APP_GOOGLE_API_KEY
   }
 });
+
+
 new Vue({
   router,
   store,
@@ -24,3 +28,8 @@ new Vue({
     return h(App);
   }
 }).$mount('#app');
+
+setUnauthorizedHandler(() => {
+  store.dispatch('logout');
+  localStorage.clear('token');
+});
