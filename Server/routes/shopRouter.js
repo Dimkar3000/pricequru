@@ -67,7 +67,7 @@ routes.get('/',async (req,res) => {
     await Shop.paginate(querry,option).then(result =>{
         //console.log(result)
         
-        response.products = result.docs.map(sanitizeShop)
+        response.shops = result.docs.map(sanitizeShop)
         response.total = result.total
         res.json(response).end()
     })
@@ -133,7 +133,7 @@ routes.get('/:id',(req,res) => {
             res.status(500)
             res.end()
         }
-        else if(product == null) {
+        else if(shop == null) {
             res.status(404)
             res.end()
         }

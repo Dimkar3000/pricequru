@@ -7,8 +7,8 @@ selenium-debug.log
 package-lock.json
 
 # local env files
-.env.local
-.env.*.local
+Client/.env.development
+Client/.env.production
 
 # Log files
 npm-debug.log*
