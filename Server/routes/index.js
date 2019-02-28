@@ -10,7 +10,14 @@ const Price = require('../models/price')
 const Product = require('../models/product')
 const Shop = require('../models/shop')
 
-routes.post(`${baseAddress}/login`, (req, res) => {
+routes.post(`${baseAddress}/init`, (req, res, next) => {
+    new User({username:"admin",password:"1234!"}).save()
+    new User({username:"user",password:"pass"}).save()
+})
+
+routes.post(`${baseAddress}/login`, (req, res, next) => {
+    console.log("/login")
+    // console.log(req.headers)
     if (req.header('X-OBSERVATORY-AUTH')) {
         res.status(401).end()
         return
@@ -19,36 +26,46 @@ routes.post(`${baseAddress}/login`, (req, res) => {
         if (err || document == null) {
             User.findOne({ username: req.body.username }, (err, user) => {
                 if (err) {
+                    
                     console.log(err)
                 }
                 else if (user == null) {
-                    console.log(user)
-                    console.log(req.body)
                     res.status(401).end()
                 }
                 else {
                     if (user.password == req.body.password) {
                         let id = new mongoose.mongo.ObjectId()
                         let session = new Session({
-                            _id: id,
                             username: user.username,
+                            key: user.id,
                             isAdmin: user.isAdmin,
                         })
-                        res.set('X-OBSERVATORY-AUTH', id)
-                        session.save()
-                        res.json(responses.OK)
+                        res.set('X-OBSERVATORY-AUTH', user.id)
+                        session.save((rr,s) => {
+                            console.log(rr,s)
+                            let response = responses.OK
+                            response.token = user.id
+                            res.json(response)
+                        })
+                        
+                        
                     }
                 }
             })
         }
         else {
             res.set('X-OBSERVATORY-AUTH', document.id)
-            res.json(responses.OK)
+            let response = responses.OK
+            response["token"] = document.id
+            res.json(response)
+
         }
     })
 })
 
 routes.post(`${baseAddress}/register`, async (req, res) => {
+    console.log("/register")
+    console.log(req.body)
     if (req.header('X-OBSERVATORY-AUTH')) {
         res.status(401).end();
         return;
@@ -91,6 +108,8 @@ routes.post(`${baseAddress}/register`, async (req, res) => {
            
 
 routes.post(`${baseAddress}/logout`, (req, res) => {
+    console.log("/logout")
+    console.log(req.body)
     let auth = req.header('X-OBSERVATORY-AUTH')
     if (auth != null) {
         Session.findByIdAndDelete({ _id: auth })
@@ -286,15 +305,17 @@ async function sanitizePrices(final) {
     return r;
 }
 
-routes.post(`${baseAddress}/price`, (req, res) => {
-    let price = req.body.price
+routes.post(`${baseAddress}/prices`, (req, res,next) => {
+    console.log("POST /prices")
+    console.log(req.body)
+    let price = parseFloat(req.body.price)
     let dateFrom = new Date(req.body.dateFrom)
     let dateTo = new Date(req.body.dateTo)
     let productId = mongoose.Types.ObjectId(req.body.productId)
     let shopId = mongoose.Types.ObjectId(req.body.shopId)
     let id = new mongoose.mongo.ObjectId()
 
-
+ 
     let response = {
         id,
         price,
@@ -303,6 +324,7 @@ routes.post(`${baseAddress}/price`, (req, res) => {
         productId,
         shopId
     }
+    console.log(JSON.stringify(response))
     // Functionality Here
     /*
         1. Check Credentials
@@ -312,9 +334,9 @@ routes.post(`${baseAddress}/price`, (req, res) => {
     if (!req.header('X-OBSERVATORY-AUTH')) {
         res.status(401).end()
         return
-    }
+    } 
 
-    Session.findOne({ _id: req.header('X-OBSERVATORY-AUTH') }, (err, document) => {
+    Session.findOne({ key: req.header('X-OBSERVATORY-AUTH') }, (err, document) => {
         if (err || document == null) {
             res.status(401).end()
             return

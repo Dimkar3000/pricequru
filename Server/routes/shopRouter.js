@@ -17,8 +17,8 @@ function sanitizeShop(p) {
     }
 }
 
-routes.get('/',async (req,res) => {
-    //console.log(req.query)
+routes.get('/',async (req,res,next) => {
+    // console.log(req.query)
     let start = parseInt(req.query.start,10);
     if(!start) start = 0;
     let count = parseInt(req.query.count,10);
@@ -65,23 +65,28 @@ routes.get('/',async (req,res) => {
     }
 
     await Shop.paginate(querry,option).then(result =>{
-        //console.log(result)
+        console.log(result)
         
-        response.shops = result.docs.map(sanitizeShop)
+        response.products = result.docs.map(sanitizeShop)
         response.total = result.total
+        // console.log(response)
         res.json(response).end()
     })
 
 });
 
-routes.post('/',(req,res) => {
+routes.post('/',(req,res,next) => {
+    console.log("POST /product")
     //console.log(req.body);
     let name = req.body.name;
     let address = req.body.address;
     let lng = req.body.lng;
     let lat = req.body.lat;
     let tags = req.body.tags;
-    let withdrawn = req.body.withdrawn;
+    if(typeof tags === "string"){
+        tags = [tags]
+    }
+    let withdrawn = req.body.withdrawn === 'true';
     let id = new mongoose.mongo.ObjectId();
 
     let response = {
@@ -105,7 +110,7 @@ routes.post('/',(req,res) => {
     return;
     }
 
-    Session.findOne({_id:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
+    Session.findOne({key:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
         if(err || document==null){
             res.status(401).end()
             return;
@@ -119,16 +124,17 @@ routes.post('/',(req,res) => {
             tags,
             withdrawn
         })
-        shop.save()
+        shop.save((rr,s) => {
+            res.json(response).end()
+        })
 
-        res.json(response).end()
 
     })
 
 });
 
-routes.get('/:id',(req,res) => {
-    Shop.findOne({_id:req.params.id},(err,shop) => {
+routes.get('/:id',(req,res,next) => {
+    Shop.findOne({key:req.params.id},(err,shop) => {
         if(err){
             res.status(500)
             res.end()
@@ -145,13 +151,13 @@ routes.get('/:id',(req,res) => {
 });
 
 
-routes.put('/:id',(req,res) => {
+routes.put('/:id',(req,res,next) => {
     let name = req.body.name;
     let address = req.body.address;
     let lng = req.body.lng;
     let lat = req.body.lat;
     let tags = req.body.tags;
-    let withdrawn = req.body.withdrawn;
+    let withdrawn = req.body.withdrawn === 'true';
 
     if([name,address,lng,lat,tags,withdrawn].some((e) => {return e == null;})){
         res.status(404).end()
@@ -161,7 +167,7 @@ routes.put('/:id',(req,res) => {
         return;
     }
 
-    Session.findOne({_id:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
+    Session.findOne({key:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
         if(err || document==null){
             res.status(401).end()
             return;
@@ -194,7 +200,7 @@ routes.put('/:id',(req,res) => {
 
 });
 
-routes.patch('/:id',(req,res) => {
+routes.patch('/:id',(req,res,next) => {
     let name = req.body.name;
     let address = req.body.address;
     let lng = req.body.lng;
@@ -210,7 +216,7 @@ routes.patch('/:id',(req,res) => {
         return;
     }
 
-    Session.findOne({_id:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
+    Session.findOne({key:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
         if(err || document==null){
             res.status(401).end()
             return;
@@ -279,7 +285,7 @@ routes.patch('/:id',(req,res) => {
     })
 });
 
-routes.delete('/:id',(req,res) => {
+routes.delete('/:id',(req,res,next) => {
     let id = req.params.id
     // if he is a user
     if(!req.header('X-OBSERVATORY-AUTH')){

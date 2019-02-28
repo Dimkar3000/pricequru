@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const sessionSchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
     username: String,
+    key: String,
     isAdmin: Boolean,
     createdAt: {
         type:Date,

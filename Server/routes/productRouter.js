@@ -1,9 +1,9 @@
 'use strict'
-const routes = require('express').Router()
-const mongoose = require('mongoose')
-const Product = require('../models/product')
-const responses = require('../DTOs/responses')
-const Session = require('../models/session')
+var routes = require('express').Router()
+var mongoose = require('mongoose')
+var Product = require('../models/product')
+var responses = require('../DTOs/responses')
+var Session = require('../models/session')
 
 function sanitizeProduct(p) {
     return {
@@ -15,8 +15,9 @@ function sanitizeProduct(p) {
     }
 }
 
-routes.get('/',async (req,res) => {
-    //console.log(req.query)
+routes.get('/',async (req,res,next) => {
+    console.log("GET /product")
+    console.log(req.query)
     let start = parseInt(req.query.start,10)
     if(!start) start = 0
     let count = parseInt(req.query.count,10)
@@ -62,26 +63,30 @@ routes.get('/',async (req,res) => {
     else if(status == "withdrawn") {
         Object.assign(querry,{withdrawn:true})
     }
-    //console.log(querry)
+    console.log(querry)
     await Product.paginate(querry,option).then(result =>{
         //console.log(result)
         
         response.products = result.docs.map(sanitizeProduct)
         response.total = result.total
+        // console.log(response)
         res.json(response).end()
     })
 
 })
 
-routes.post('/',(req,res) => {
-    //console.log(req.body)
+routes.post('/',(req,res,next) => {
+    console.log("POST /product")
+    // console.log(req.body)
     let name = req.body.name
     let description = req.body.description
     let category = req.body.category
     let tags = req.body.tags
-    let withdrawn = req.body.withdrawn
+    if(typeof tags === "string"){
+        tags = [tags]
+    }
+    let withdrawn = req.body.withdrawn === 'true'
     let id = new mongoose.mongo.ObjectId()
-  
     let response = {
         id,
         name,
@@ -91,6 +96,9 @@ routes.post('/',(req,res) => {
         withdrawn,
         // Anything else
     }
+    console.log(req.header('X-OBSERVATORY-AUTH'))
+    console.log(JSON.stringify(response))
+    // console.log(req.body.withdrawn)
     // Functionality Here
     /*
         1. Check Credentials
@@ -99,12 +107,14 @@ routes.post('/',(req,res) => {
     */
 
     if(!req.header('X-OBSERVATORY-AUTH')){
+        console.log("here")
         res.status(401).end()
         return
     }
 
-    Session.findOne({_id:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
-        if(err || document==null){
+    Session.findOne({key:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
+        if(err || document===null){
+            console.log("here2:",err,document)
             res.status(401).end()
             return
         }
@@ -117,16 +127,17 @@ routes.post('/',(req,res) => {
             tags,
             withdrawn
         })
-        product.save()
-
-        res.json(response).end()
+        product.save().then(s => {
+            res.json(response).end()
+        })
+        // console.log(product)
 
     })
 
     
 })
 
-routes.get('/:id',(req,res) => {
+routes.get('/:id',(req,res,next) => {
      Product.findOne({_id:req.params.id},(err,product) => {
         if(err){
             res.status(500)
@@ -144,7 +155,7 @@ routes.get('/:id',(req,res) => {
 })
 
 
-routes.put('/:id',(req,res) => {
+routes.put('/:id',(req,res,next) => {
     //console.log("PUT: "+ req.params.id)
     let name = req.body.name
     let description = req.body.description
@@ -163,7 +174,7 @@ routes.put('/:id',(req,res) => {
         return
     }
 
-    Session.findOne({_id:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
+    Session.findOne({key:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
         if(err || document==null){
             res.status(401).end()
             return
@@ -193,7 +204,7 @@ routes.put('/:id',(req,res) => {
     })
 })
 
-routes.patch('/:id',(req,res) => {
+routes.patch('/:id',(req,res,next) => {
     //console.log("PATCH: "+ req.params.id)
     let name = req.body.name
     let description = req.body.description
@@ -210,7 +221,7 @@ routes.patch('/:id',(req,res) => {
         res.status(404).end()
     }
 
-    Session.findOne({_id:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
+    Session.findOne({key:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
         if(err || document==null){
             res.status(401).end()
             return
@@ -279,16 +290,15 @@ routes.patch('/:id',(req,res) => {
     })
 })
 
-routes.delete('/:id',(req,res) => {
+routes.delete('/:id',(req,res,next) => {
     let id = req.params.id
     // if he is a user
     if(!req.header('X-OBSERVATORY-AUTH')){
         res.status(401).end()
         return
     }
-
-    Session.findOne({_id:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
-        if(err || document==null){
+    Session.findOne({key:req.header('X-OBSERVATORY-AUTH')},(err,document) => {
+        if(err || document===null){
             res.status(401).end()
             return
         }
