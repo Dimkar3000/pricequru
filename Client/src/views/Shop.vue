@@ -68,8 +68,9 @@
           />
         </GmapMap>
 
-    </v-flex></v-layout>
-  </v-layout></div>
+      </v-flex>
+    </v-layout>
+  </div>
 
 </template>
 
