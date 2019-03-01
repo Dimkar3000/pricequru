@@ -7,7 +7,7 @@ const Session = require('../models/session');
 
 function sanitizeShop(p) {
     return {
-        id:p._id,
+        id:p._id.toHexString(),
         name:p.name,
         address:p.address,
         lng: p.location[0],
@@ -65,11 +65,10 @@ routes.get('/',async (req,res,next) => {
     }
 
     await Shop.paginate(querry,option).then(result =>{
-        console.log(result)
         
-        response.products = result.docs.map(sanitizeShop)
+        response.shops = result.docs.map(sanitizeShop)
         response.total = result.total
-        // console.log(response)
+        console.log(response)
         res.json(response).end()
     })
 
@@ -88,7 +87,7 @@ routes.post('/',(req,res,next) => {
     }
     let withdrawn = req.body.withdrawn === 'true';
     let id = new mongoose.mongo.ObjectId();
-
+    console.log(withdrawn,req.body.withdrawn)
     let response = {
         id,
         name,
@@ -99,12 +98,7 @@ routes.post('/',(req,res,next) => {
         withdrawn,
         // Anything else
     }
-    // Functionality Here
-    /*
-        1. Check Credentials
-        2. If ok add the shop
-        3. Else return error code
-    */
+
    if(!req.header('X-OBSERVATORY-AUTH')){
     res.status(401).end();
     return;

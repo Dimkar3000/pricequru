@@ -10,9 +10,16 @@ const Price = require('../models/price')
 const Product = require('../models/product')
 const Shop = require('../models/shop')
 
-routes.post(`${baseAddress}/init`, (req, res, next) => {
+routes.get(`${baseAddress}/init`, (req, res, next) => {
+    console.log("init")
+    Price.deleteMany({price: /.*/})
+    Session.deleteMany({key: /.*/})
+    Product.deleteMany({name: /.*/})
+    User.deleteMany({username: /.*/})
+    Shop.deleteMany({name: /.*/})
     new User({username:"admin",password:"1234!"}).save()
     new User({username:"user",password:"pass"}).save()
+    res.end()
 })
 
 routes.post(`${baseAddress}/login`, (req, res, next) => {
@@ -126,7 +133,7 @@ routes.use(`${baseAddress}/products`, productsRouter)
 const shopRouter = require('./shopRouter')
 routes.use(`${baseAddress}/shops`, shopRouter)
 
-routes.get(`${baseAddress}/prices`, async (req, res) => {
+routes.get(`${baseAddress}/prices`, async (req, res,next ) => {
     //console.log(req.query)
     //pagination properties 
     let start = parseInt(req.query.start, 10)
@@ -315,46 +322,109 @@ routes.post(`${baseAddress}/prices`, (req, res,next) => {
     let shopId = mongoose.Types.ObjectId(req.body.shopId)
     let id = new mongoose.mongo.ObjectId()
 
- 
-    let response = {
-        id,
-        price,
-        dateFrom: req.body.dateFrom,
-        dateTo: req.body.dateTo,
-        productId,
-        shopId
-    }
-    console.log(JSON.stringify(response))
+    if (!req.header('X-OBSERVATORY-AUTH')) {
+        res.status(401).end()
+        return
+    } 
+
     // Functionality Here
     /*
         1. Check Credentials
         2. If ok add the product
         3. Else return error code
     */
-    if (!req.header('X-OBSERVATORY-AUTH')) {
-        res.status(401).end()
-        return
-    } 
 
-    Session.findOne({ key: req.header('X-OBSERVATORY-AUTH') }, (err, document) => {
-        if (err || document == null) {
-            res.status(401).end()
-            return
+    Product.findOne({_id:productId},(err,product) => {
+        if(err){
+            res.status(500)
+            res.end()
         }
-        // User Authorized
-        let priceObj = new Price({
-            _id: id,
-            price,
-            dateFrom,
-            dateTo,
-            productId,
-            shopId
-        })
-        priceObj.save()
+        else if(product == null) {
+            res.status(404)
+            res.end()
+        }
+        else {
+            Shop.findOne({key:req.params.id},(err,shop) => {
+                if(err){
+                    res.status(500)
+                    res.end()
+                }
+                else if(shop == null) {
+                    res.status(404)
+                    res.end()
+                }
+                else {
+                    Session.findOne({ key: req.header('X-OBSERVATORY-AUTH') }, (err, document) => {
+                        if (err || document == null) {
+                            res.status(401).end()
+                            return
+                        }
+                        // User Authorized
+                        let priceObj = new Price({
+                            _id: id,
+                            price,
+                            dateFrom,
+                            dateTo,
+                            productId,
+                            shopId
+                        })
+                        priceObj.save((err,pr) => {
+                            if (err || pr == null) {
+                                res.status(401).end()
+                                return
+                            }
+                            // HERE I HAVE ALL the info
+                            let response = {
+                                start:0,
+                                count:2,
+                                total:2,
+                                price: [
+                                    {
+                                    price,
+                                    date: req.body.dateFrom,
+                                    productName: product.name,
+                                    productTags: product.tags,  
+                                    productId,
+                                    shopId,
+                                    shopName: shop.name,
+                                    shopTags: shop.tags,
+                                    shopAddress: shop.address,
+                                    shopDist: 2
+                                    },
+                                    {
+                                        price,
+                                        date: req.body.dateTo,
+                                        productName: product.name,
+                                        productTags: product.tags,  
+                                        productId,
+                                        shopId,
+                                        shopName: shop.name,
+                                        shopTags: shop.tags,
+                                        shopAddress: shop.address,
+                                        shopDist: 2
+                                    }
+                                ]
+                            }
+                            console.log(JSON.stringify(response))
+                            res.json(response).end()
+                        })
+                
+                
+                    })
+                    
 
-        res.json(response).end()
+                }
+            })
 
+
+        }
     })
+ 
+    
+
+
+
+    
 
 
 })
