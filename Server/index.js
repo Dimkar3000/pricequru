@@ -30,7 +30,7 @@ app.use(exposeHeaders);
 app.use(limitResponseFormat);
 
 var server;
-if (port == 443){//||port == 8765){
+if (port == 443 ||port == 8765){
 
   let options = {
     key: fs.readFileSync( './localhost.key' ),
@@ -63,21 +63,26 @@ if (port == 443){//||port == 8765){
   
   app.use('/', routes);
 
+    // Turn on that server!
+  server.listen( port, () => {
+    console.log(`App listening on port ${port} with https`);
+
+  }); 
   
 }
 else{
   let http = require('http');
   
   server = http.createServer(app);
+  // Turn on that server!
+  server.listen( port, () => {
+    console.log(`App listening on port ${port} with http`);
 
+  }); 
 
   app.use('/', routes);
 }
 
-// Turn on that server!
-server.listen( port, () => {
-  console.log(`App listening on port ${port}`);
 
-}); 
 
 module.exports = app

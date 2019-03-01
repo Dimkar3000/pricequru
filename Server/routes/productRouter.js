@@ -161,7 +161,7 @@ routes.put('/:id',(req,res,next) => {
     let description = req.body.description
     let category = req.body.category
     let tags = req.body.tags
-    let withdrawn = req.body.withdrawn
+    let withdrawn = req.body.withdrawn === 'true'
     let id = req.params.id
 
     //console.log({name,description,category,tags,withdrawn})
