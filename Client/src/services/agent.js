@@ -20,4 +20,20 @@ const request = ({
   });
 };
 
-export { request };
+const setUnauthorizedHandler = (handler) => {
+  agent.interceptors.response.use(
+    (res) => {
+      return res;
+    },
+    (err) => {
+      debugger;
+      console.error(err);
+      if (err && err.response && err.response.status === 401) {
+        handler(err);
+      }
+      return Promise.reject(err);
+    }
+  );
+};
+
+export { request, setUnauthorizedHandler };
