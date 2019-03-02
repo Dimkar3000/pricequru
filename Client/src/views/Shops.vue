@@ -5,7 +5,7 @@
       <v-btn
         v-if="isAuthenticated"
         @click="addShop"
-      >Προσθήκη καταστήματος
+      >Προσθηκη καταστηματος
       </v-btn>
     </v-layout>
 

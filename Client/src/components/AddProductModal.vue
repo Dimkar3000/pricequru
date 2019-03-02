@@ -28,6 +28,7 @@
             :items="categories"
             v-model="product.category"
             label="Κατηγορία"
+            :rules="rules.category"
           />
           <v-text-field
             label="Όνομα"
@@ -37,6 +38,7 @@
           <v-textarea
             label="Περιγραφή"
             v-model="product.description"
+            :rules="rules.description"
           />
           <v-combobox
             label="Tags"
@@ -69,6 +71,14 @@ import SmartphoneFormPartial from './SmartphoneFormPartial.vue';
 
 import productsService from '../services/products-service';
 
+const categoryRule = (category) => {
+  return category != null || 'Παρακαλώ επιλέξτε μια κατηγορία.';
+};
+
+const descriptionRule = (description) => {
+  return (description != null && description.trim() != '') ||
+    'Η περιγραφή του προϊόντος είναι υποχρεωτικό πεδίο.';
+};
 const productRule = (text) => {
   return (text != null && text.trim() !== '') ||
     'Το όνομα του προϊόντος είναι υποχρεωτικό πεδίο.';
@@ -100,6 +110,8 @@ export default {
       },
       productAdditionalInfo: {},
       rules: {
+        category: [categoryRule],
+        description: [descriptionRule],
         name: [productRule]
       }
     };
