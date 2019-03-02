@@ -26,7 +26,7 @@ function sanitizePrices(final) {
         return {
             price: e.price,
             date: formatDate(e.dateFrom),
-            productName: e.name,
+            productName: e.productId.name,
             productId: e.productId._id,
             productTags: e.productId.tags,
             shopId: e.shopId._id,
@@ -51,7 +51,11 @@ module.exports = class PriceController {
         // Shops,Products can be an array or single value. 
         // After this check they will always be an array
         let shops = req.query.shops;
-        if (!Array.isArray(shops)) shops = [shops];
+        if (!Array.isArray(shops) && shops !== undefined) {
+            shops = [shops];
+        } else {
+            shops = [];
+        }       
         let products = req.query.products;
         if (!Array.isArray(products) && products !== undefined) {
             products = [products];
@@ -139,7 +143,7 @@ module.exports = class PriceController {
         let findOptions = {
             $and: [{ dateFrom: { $lte: dateTo } }, { dateTo: { $gte: dateFrom } }]
         };
-        if (shops !== undefined) {
+        if (shops[0] !== undefined) {
             findOptions.shopId = {
                 $in: shops
             };
@@ -154,7 +158,6 @@ module.exports = class PriceController {
             .populate(popoulateOptions)
             .skip(start)
             .limit(count).sort(options.sort);
-
         // Check any productTags exits 
         if (tags[0] !== undefined) {
             price = price.filter(x => {

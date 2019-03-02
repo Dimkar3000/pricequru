@@ -34,6 +34,8 @@ routes.post(`${baseAddress}/logout`, async (req, res, next) => {
     await identityController.Logout(req, res);
 });
 
+routes.get(`${baseAddress}/getUserData`, identityController.getUserData);
+
 routes.get(`${baseAddress}/prices`, async (req, res, next) => {
     await priceController.GetPrice(req, res);
 });
