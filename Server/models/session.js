@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const sessionSchema = mongoose.Schema({
     username: String,
+    password: String,
     key: String,
     isAdmin: Boolean,
     createdAt: {

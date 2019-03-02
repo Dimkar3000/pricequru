@@ -6,11 +6,15 @@ var cors = require('cors');
 var routes = require('./routes');
 var mongoose = require('mongoose');
 var User = require('./models/user');
+
+var logging = require('./middleware/logging')
 var exposeHeaders = require('./middleware/expose-headers');
 var limitResponseFormat = require('./middleware/limit-response-format');
 var bodyParser = require('body-parser');
+
 // var connectionString = `mongodb://sa:${process.env.MONGO_PASS}@pricegurudb-shard-00-00-f7dah.gcp.mongodb.net:27017,pricegurudb-shard-00-01-f7dah.gcp.mongodb.net:27017,pricegurudb-shard-00-02-f7dah.gcp.mongodb.net:27017/${process.env.DB_NAME}?ssl=true&replicaSet=PriceguruDB-shard-0&authSource=admin&retryWrites=true`;
 var connectionString = "mongodb://localhost:27017/test"
+
 mongoose.connect(connectionString,{useCreateIndex: true,useNewUrlParser: true});
 var app = express();
 var port = process.env.PORT || 433;
@@ -26,12 +30,13 @@ app.use(express.static('public'))
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true})); // for parsing application/x-www-form-urlencoded
 
+app.use(logging);
 app.use(exposeHeaders);
 app.use(limitResponseFormat);
 
 var server;
 if (port == 443 ||port == 8765){
-
+  app.locals.port = port
   let options = {
     key: fs.readFileSync( './localhost.key' ),
     cert: fs.readFileSync( './localhost.cert' ),
@@ -77,7 +82,7 @@ else{
   // Turn on that server!
   server.listen( port, () => {
     console.log(`App listening on port ${port} with http`);
-
+    
   }); 
 
   app.use('/', routes);
