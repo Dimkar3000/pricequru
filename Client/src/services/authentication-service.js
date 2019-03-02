@@ -1,5 +1,12 @@
 import { request } from './agent';
 
+function getData(token) {
+  return request({
+    method: 'GET',
+    url: 'getUserData',
+    token
+  });
+}
 function login(password, username) {
   const data = {
     password,
@@ -32,7 +39,9 @@ function register(password, username) {
   });
 }
 
-const authenticationService = { login, logout, register };
+const authenticationService = {
+  getData, login, logout, register
+};
 
 export default authenticationService;
 

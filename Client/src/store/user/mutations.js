@@ -8,7 +8,7 @@ const mutations = {
     state.token = payload.token;
   },
   [types.SET_USER_DATA]: (state, payload) => {
-    state.email = payload.email;
+    state.isAdmin = payload.isAdmin;
   }
 };
 

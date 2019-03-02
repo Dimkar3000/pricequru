@@ -1,23 +1,42 @@
 <template>
   <div>
-    <v-layout wrap>
+    <v-layout justify-center>
+      <v-btn
+        :loading="removingProduct"
+        v-if="token"
+        @click="removeProduct"
+      >{{ isAdmin?'Διαγραφη':'Αποσυρση' }}
+      </v-btn>
+      <v-btn
+        v-if="token"
+        @click="addingPrice=true"
+      >Προσθηκη τιμης
+      </v-btn>
+    </v-layout>
+
+    <v-layout>
       <v-flex
         xs10
         sm4
         offset-xs1
         offset-sm4
         class="loading-container"
-        v-if="loading"
+        v-if="loadingProduct"
       >
         <v-progress-circular indeterminate />
       </v-flex>
+    </v-layout>
+    <v-layout>
       <v-flex
         xs10
         sm10
         offset-xs-1
-        offset-sm1>
-        <h2 v-if="!product && !loading">Το προϊόν που ζητήσατε δε βρέθηκε</h2>
+        offset-sm1
+      >
+        <h2 v-if="!product && !loadingProduct">Το προϊόν που ζητήσατε δε βρέθηκε</h2>
       </v-flex>
+    </v-layout>
+    <v-layout>
       <v-flex
         xs10
         sm4
@@ -26,12 +45,10 @@
       >
 
         <v-card v-if="product">
-          <!-- <v-img
-            :src="getLocalUrl(product)"
-            contain
-            height="200px"
-          /> -->
-          <v-card-title primary-title>{{ product.name }}</v-card-title>
+          <v-card-title
+            primary-title
+            class="title"
+          >{{ product.name }}</v-card-title>
           <v-card-text>{{ product.category }}</v-card-text>
           <v-card-text>{{ product.description }} </v-card-text>
           <v-chip
@@ -44,10 +61,48 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <v-layout>
+      <v-flex
+        xs10
+        sm4
+        offset-xs1
+        offset-sm4
+        class="loading-container"
+        v-if="loadingPrices"
+      >
+        <v-progress-circular indeterminate />
+      </v-flex>
+    </v-layout>
+    <v-list v-if="isProductAvailable">
+      <v-list-tile
+        v-for="price in prices.prices"
+        :key="price.id"
+      >
+
+        <v-list-content>
+          <v-list-tile-title
+            @click="viewShop(price.shopId)"
+            v-text="price.shopName"
+            class="clickable"
+          />
+          <v-list-tile-sub-title>{{ price.price }}€</v-list-tile-sub-title>
+        </v-list-content>
+      </v-list-tile>
+    </v-list>
+
+    <AddPriceModal
+      :open="addingPrice"
+      @closed="addingPrice=false"
+      :initial-product-id="id"
+    />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
+import AddPriceModal from '../components/AddPriceModal.vue';
+import pricesService from '../services/prices-service';
 import productsService from '../services/products-service';
 
 export default {
@@ -57,10 +112,18 @@ export default {
       type: String
     }
   },
+  components: {
+    AddPriceModal
+  },
+  name: 'Product',
   data() {
     return {
-      loading: false,
-      product: null
+      addingPrice: false,
+      loadingPrices: false,
+      loadingProduct: false,
+      prices: [],
+      product: null,
+      removingProduct: false
     };
   },
   mounted() {
@@ -71,9 +134,21 @@ export default {
       this.fetchData();
     }
   },
+  computed: {
+    isProductAvailable() {
+      return this.prices && this.prices.prices && this.prices.prices.length > 0;
+    },
+    isProductUnavailable() {
+      return this.prices && this.prices.prices && this.prices.prices.length === 0;
+    },
+    ...mapState({
+      isAdmin: (state) => { return state.user.isAdmin; },
+      token: (state) => { return state.user.token; }
+    })
+  },
   methods: {
     async fetchData() {
-      this.loading = true;
+      this.loadingProduct = true;
       try {
         const product = (await productsService.getProduct(this.id)).data;
         console.log(product);
@@ -82,13 +157,55 @@ export default {
         console.error(err);
         this.product = null;
       } finally {
-        this.loading = false;
+        this.loadingProduct = false;
+      }
+      if (this.product) {
+        this.loadingPrices = true;
+        try {
+          const data = (await pricesService.getPricesForProduct({
+            start: 0,
+            count: 500,
+            productId: this.id,
+            sort: 'price|asc'
+          })).data;
+
+          this.prices = data;
+        } catch (err) {
+          console.error(err);
+        } finally {
+          console.log();
+          this.loadingPrices = false;
+        }
       }
     },
     getLocalUrl(product) {
       const urlParts = product.imageUrl.split('/');
       const fileName = urlParts[urlParts.length - 1];
       return `images/${fileName}`;
+    },
+    async removeProduct() {
+      if (this.removingProduct) {
+        return;
+      }
+      this.removingProduct = true;
+      try {
+        await productsService.removeProduct(this.id, this.token);
+        this.$router.push({
+          name: 'products'
+        });
+      } catch (err) {
+        console.error(err);
+      } finally {
+        this.removeProduct = false;
+      }
+    },
+    viewShop(shopId) {
+      this.$router.push({
+        name: 'shop',
+        params: {
+          id: shopId
+        }
+      });
     }
   }
 };

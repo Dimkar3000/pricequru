@@ -6,7 +6,7 @@ const logout = ({ commit }) => {
     token: null
   });
   commit(types.SET_USER_DATA, {
-    email: null
+    isAdmin: null
   });
 };
 

@@ -16,7 +16,9 @@
         <v-icon>close</v-icon>
       </v-btn>
       <v-flex justify-center>
-        <v-form @submit.prevent="submitForm">
+        <v-form
+          @submit.prevent="submitForm"
+          ref="form">
           <v-text-field
             label="Όνομα Χρήστη"
             v-model="username"
@@ -64,6 +66,11 @@ export default {
       return this.oldAccount ? 'Έχω ήδη λογαριασμό' : 'Θέλω να αποκτήσω νέο λογαριασμό';
     }
   },
+  watch: {
+    open() {
+      this.$refs.form.reset();
+    }
+  },
   methods: {
     login() {
       this.busy = true;
@@ -73,8 +80,13 @@ export default {
           this.handleSuccess(res);
           this.modalClosed();
         })
-        .catch(() => {
+        .catch((err) => {
           console.error('login failed');
+          const message = 'Η προσπάθεια σύνδεσης απέτυχε.';
+          this.$swal({
+            type: 'error',
+            text: message
+          });
         }).finally(() => {
           this.busy = false;
         });
@@ -88,6 +100,10 @@ export default {
         token
       });
       localStorage.setItem('token', token);
+      authenticationService.getData(token).then((getDataResponse) => {
+        localStorage.setItem('isAdmin', getDataResponse.data.isAdmin);
+        this.setUserData({ isAdmin: getDataResponse.data.isAdmin });
+      });
     },
     register() {
       authenticationService.register(this.password, this.username)
@@ -110,7 +126,7 @@ export default {
         this.register();
       }
     },
-    ...mapActions(['setToken'])
+    ...mapActions(['setToken', 'setUserData'])
   },
   props: {
     open: {

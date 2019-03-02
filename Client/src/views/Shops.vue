@@ -1,14 +1,11 @@
 <template>
   <div>
-    <v-layout justify-start>
+    <v-layout justify-center>
 
       <v-btn
         v-if="isAuthenticated"
         @click="addShop"
-        fab
-        icon
-      >
-        <v-icon>add_circle</v-icon>
+      >Προσθήκη καταστήματος
       </v-btn>
     </v-layout>
 
@@ -24,32 +21,15 @@
       justify-center
       row
     >
-      <!-- <v-flex shrink>
-        <v-select
-          :items="sortOptions"
-          :value="sortBy"
-          label="Ταξινόμηση"
-          :prepend-inner-icon="sortOrderIcon"
-          @change="updateSorting"
-        />
-        <v-select
-          :items="statusOptions"
-          :value="status"
-          label="Κατάσταση Προιόντος"
-          @change="updateStatusOptions"
-        />
-      </v-flex> -->
+      <v-flex
+        xs10
+        sm4
+        class="loading-container"
+        v-if="loading"
+      >
+        <v-progress-circular indeterminate />
+      </v-flex>
     </v-layout>
-    <v-flex
-      xs10
-      sm4
-      offset-xs1
-      offset-sm4
-      class="loading-container"
-      v-if="loading"
-    >
-      <v-progress-circular indeterminate />
-    </v-flex>
     <v-layout
       wrap
       v-if="fetchedData && fetchedData.shops"
@@ -67,7 +47,7 @@
           @click="viewShop(shop.id)"
           class="clickable"
         >
-          <v-card-title>{{ shop.name }}</v-card-title>
+          <v-card-title class="title">{{ shop.name }}</v-card-title>
           <v-card-text>{{ shop.category }}</v-card-text>
           <v-card-text>{{ shop.description }}</v-card-text>
           <v-chip
@@ -91,7 +71,7 @@
       :open="newShopModalVisible"
       @closed="newShopModalClosed"
     />
-  </div>
+  </v-layout></div>
 </template>
 
 <script>
@@ -100,7 +80,7 @@ import { mapGetters } from 'vuex';
 import AddShopModal from '../components/AddShopModal.vue';
 import shopsService from '../services/shops-service';
 
-const shopsPerPage = 1;
+const shopsPerPage = 20;
 
 export default {
   props: {

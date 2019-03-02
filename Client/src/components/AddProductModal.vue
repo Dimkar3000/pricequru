@@ -20,7 +20,9 @@
         xs-offset-3
         justify-center
       >
-        <v-form @submit.prevent="save">
+        <v-form
+          @submit.prevent="save"
+          ref="form">
           <v-select
             :items="categories"
             v-model="product.category"
@@ -70,6 +72,12 @@ export default {
     LaptopFormPartial,
     SmartphoneFormPartial
   },
+  props: {
+    open: {
+      default: false,
+      type: Boolean,
+    }
+  },
   data() {
     return {
       busy: false,
@@ -86,6 +94,11 @@ export default {
       },
       productAdditionalInfo: {}
     };
+  },
+  watch: {
+    open() {
+      this.$refs.form.reset();
+    }
   },
   computed: {
     additionalFieldsComponent() {
@@ -128,12 +141,6 @@ export default {
     },
     updateAdditionalInfo(productAdditionalInfo) {
       this.productAdditionalInfo = productAdditionalInfo;
-    }
-  },
-  props: {
-    open: {
-      default: false,
-      type: Boolean,
     }
   }
 };

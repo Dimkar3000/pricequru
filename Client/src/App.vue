@@ -71,6 +71,10 @@ export default {
     if (token) {
       this.setToken({ token });
     }
+    const isAdmin = localStorage.getItem('isAdmin');
+    if (isAdmin != null) {
+      this.setUserData({ isAdmin });
+    }
   },
   data() {
     return {
@@ -86,7 +90,7 @@ export default {
         .then(() => {
           console.log('logged out');
           this.logoutAction();
-          localStorage.removeItem('token');
+          localStorage.clear();
         })
         .catch(() => {
           console.error('logout failed');
@@ -95,7 +99,7 @@ export default {
     showLoginDialog() {
       this.loginDialogOpen = true;
     },
-    ...mapActions({ logoutAction: 'logout', setToken: 'setToken' })
+    ...mapActions({ logoutAction: 'logout', setToken: 'setToken', setUserData: 'setUserData' })
   }
 };
 </script>
@@ -133,5 +137,12 @@ h2 {
   text-align: center;
 }
 
+.fl-r {
+  float: right;
+}
+
+.black-text {
+  color: #222;
+}
 </style>
 

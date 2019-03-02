@@ -26,7 +26,6 @@ const setUnauthorizedHandler = (handler) => {
       return res;
     },
     (err) => {
-      debugger;
       console.error(err);
       if (err && err.response && err.response.status === 401) {
         handler(err);

@@ -1,15 +1,13 @@
 <template>
   <div>
 
-    <v-layout justify-start>
+    <v-layout justify-center>
 
       <v-btn
         v-if="isAuthenticated"
         @click="addProduct"
-        fab
-        icon
       >
-        <v-icon>add_circle</v-icon>
+        Προσθηκη Προϊοντος
       </v-btn>
     </v-layout>
 
@@ -68,7 +66,7 @@
           @click="viewProduct(product.id)"
           class="clickable"
         >
-          <v-card-title>{{ product.name }}</v-card-title>
+          <v-card-title class="title">{{ product.name }}</v-card-title>
           <v-card-text>{{ product.category }}</v-card-text>
           <v-card-text>{{ product.description }}</v-card-text>
           <v-chip
@@ -102,7 +100,7 @@ import AddProductModal from '../components/AddProductModal.vue';
 import SearchBar from '../components/SearchBar.vue';
 import productsService from '../services/products-service';
 
-const productsPerPage = 15;
+const productsPerPage = 20;
 export default {
   components: {
     AddProductModal,

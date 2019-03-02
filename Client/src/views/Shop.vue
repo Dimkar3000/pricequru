@@ -1,5 +1,10 @@
 <template>
   <div>
+    <v-layout justify-center>
+      <v-btn @click="addingPrice=true">Προσθηκη τιμης
+      </v-btn>
+    </v-layout>
+
     <v-layout>
       <v-flex
         xs10
@@ -7,7 +12,7 @@
         offset-xs1
         offset-sm4
         class="loading-container"
-        v-if="loading"
+        v-if="loadingShop"
       >
         <v-progress-circular indeterminate />
       </v-flex>
@@ -18,8 +23,9 @@
         xs10
         sm10
         offset-xs-1
-        offset-sm1>
-        <h2 v-if="!shop && !loading">Το κατάστημα που ζητήσατε δε βρέθηκε</h2>
+        offset-sm1
+      >
+        <h2 v-if="!shop && !loadingShop">Το κατάστημα που ζητήσατε δε βρέθηκε</h2>
       </v-flex>
     </v-layout>
 
@@ -30,46 +36,79 @@
         sm4
         offset-xs1
         offset-sm4
-      >  <v-card v-if="shop">
-        <v-card-title>{{ shop.name }}</v-card-title>
-        <v-card-text>{{ shop.address }}</v-card-text>
-        <v-chip
-          v-for="tag in shop.tags"
-          :key="tag"
-          outline
-        >
-          {{ tag }}
-        </v-chip>
-      </v-card>
+      >
+        <v-card v-if="shop">
+          <v-card-title>{{ shop.name }}</v-card-title>
+          <v-card-text>{{ shop.address }}</v-card-text>
+          <v-chip
+            v-for="tag in shop.tags"
+            :key="tag"
+            outline
+          >
+            {{ tag }}
+          </v-chip>
+          <v-card-text>{{ prices.prices.length }} Τιμές</v-card-text>
+        </v-card>
       </v-flex>
     </v-layout>
+
     <v-layout>
       <v-flex
         xs10
         sm10
         offset-xs1
-        offset-sm1>
-        <GmapMap
-          :center="{lng: +shop.lng, lat:+shop.lat}"
-          :zoom="10"
-          v-if="shop"
-          :options="options"
-          style="width: 100%; height: 500px; margin: 50px auto;"
+        offset-sm1
+      >
 
-        >
-          <GmapMarker
-            :position="{lng: +shop.lng, lat:+shop.lat}"
-            clickable
-          />
-          <GmapMarker
-            v-if="currentLocation"
-            :position="currentLocation"
-            icon="images/home.png"
-          />
-        </GmapMap>
+        <v-expansion-panel>
+          <v-expansion-panel-content :key="0">
+            <template slot="header">
+              <div>
+                Λίστα προϊόντων
+              </div>
+            </template>
+            <v-list>
+              <v-list-tile
+                v-for="price in prices.prices"
+                :key="price.id"
+              >
+
+                <v-list--content>
+                  <v-list-tile-title
+                    class="clickable"
+                    @click="viewProduct(price.productId)"
+                    v-text="price.productName"
+                  />
+                  <v-list-tile-sub-title>{{ price.price }}€</v-list-tile-sub-title>
+                </v-list--content>
+              </v-list-tile>
+            </v-list>
+          </v-expansion-panel-content>
+          <v-expansion-panel-content :key="1">
+            <template slot="header">
+              <div>Προβολή καταστήματος στο χάρτη</div>
+            </template>
+
+            <GmapMap
+              :center="{lng: +shop.lng, lat:+shop.lat}"
+              :zoom="10"
+              v-if="shop"
+              :options="options"
+              style="width: 100%; height: 500px; margin: 50px auto;"
+            >
+              <GmapMarker :position="{lng: +shop.lng, lat:+shop.lat}" />
+            </GmapMap>
+          </v-expansion-panel-content>
+
+        </v-expansion-panel>
 
       </v-flex>
     </v-layout>
+    <AddPriceModal
+      :open="addingPrice"
+      @closed="addingPrice=false"
+      :initial-shop-id="id"
+    />
   </div>
 
 </template>
@@ -77,6 +116,8 @@
 <script>
 import { gmapApi } from 'vue2-google-maps';
 
+import AddPriceModal from '../components/AddPriceModal.vue';
+import pricesService from '../services/prices-service';
 import shopsService from '../services/shops-service';
 import geolocation from '../services/geolocation';
 
@@ -87,16 +128,24 @@ export default {
       type: String,
     }
   },
+  name: 'Shop',
+  components: {
+    AddPriceModal
+  },
   data() {
     return {
-      loading: false,
-      shop: null,
+      addingPrice: false,
       currentLocation: null,
+      loadingShop: false,
       options: {
         mapTypeControl: false,
         minZoom: 5,
         streetViewControl: false
       },
+      prices: {
+        prices: []
+      },
+      shop: null
     };
   },
   mounted() {
@@ -104,7 +153,7 @@ export default {
     this.getCurrentLocation();
   },
   computed: {
-    google: gmapApi
+    google: gmapApi,
   },
   watch: {
     id() {
@@ -113,15 +162,21 @@ export default {
   },
   methods: {
     async fetchData() {
-      this.loading = true;
+      this.loadingShop = true;
       try {
         const shop = (await shopsService.getShop(this.id)).data;
         this.shop = shop;
+        const prices = (await pricesService.getPricesForShop({
+          start: 0,
+          count: 500,
+          shopId: this.id
+        })).data;
+        this.prices = prices;
       } catch (err) {
         console.error(err);
         this.shop = null;
       } finally {
-        this.loading = false;
+        this.loadingShop = false;
       }
     },
     async getCurrentLocation() {
@@ -135,6 +190,14 @@ export default {
       } catch (err) {
         console.error(err);
       }
+    },
+    viewProduct(productId) {
+      this.$router.push({
+        name: 'product',
+        params: {
+          id: productId
+        }
+      });
     }
   },
 

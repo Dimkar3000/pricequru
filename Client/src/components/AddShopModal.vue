@@ -31,6 +31,10 @@
             v-model="shop.address"
             required
           />
+          <v-btn
+            type="button"
+            @click="getCoordinatesFromAddress"
+            :loading="gettingCoordinates">Εύρεση στο χάρτη</v-btn>
           <v-combobox
             label="Tags"
             v-model="shop.tags"
@@ -71,9 +75,16 @@ import shopsService from '../services/shops-service';
 import geolocation from '../services/geolocation';
 
 export default {
+  props: {
+    open: {
+      default: false,
+      type: Boolean,
+    }
+  },
   data() {
     return {
       busy: false,
+      gettingCoordinates: false,
       initialCenter: { lat: 10, lng: 10 },
       selectedPosition: { lat: 10, lng: 10 },
       shop: {
@@ -116,6 +127,34 @@ export default {
       this.selectedPosition.lat = e.latLng.lat();
       this.selectedPosition.lng = e.latLng.lng();
     },
+    async getCoordinatesFromAddress() {
+      if (this.gettingCoordinates || !this.shop.address) {
+        return;
+      } this.gettingCoordinates = true;
+      try {
+        const result = await geolocation.geocodeAddress(this.shop.address);
+        const data = result.data;
+        if (data.results && data.results[0] && data.results[0].geometry && data.results[0].geometry.location) {
+          const { lat, lng } = data.results[0].geometry.location;
+          console.log({ lat, lng });
+          this.initialCenter = {
+            lat, lng
+          };
+          this.selectedPosition = {
+            lat, lng
+          };
+        } else { throw (new Error()); }
+        console.log(result);
+      } catch (err) {
+        console.error(err);
+        this.$swal({
+          type: 'error',
+          text: 'Συγγνώμη, δεν μπορέσαμε να εντοπίσουμε τη διεύθυνση στο χάρτη.'
+        });
+      } finally {
+        this.gettingCoordinates = false;
+      }
+    },
     modalClosed() {
       this.$emit('closed');
     },
@@ -145,12 +184,6 @@ export default {
     },
     updateAdditionalInfo(productAdditionalInfo) {
       this.productAdditionalInfo = productAdditionalInfo;
-    }
-  },
-  props: {
-    open: {
-      default: false,
-      type: Boolean,
     }
   }
 };
