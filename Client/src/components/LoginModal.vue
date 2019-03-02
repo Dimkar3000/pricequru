@@ -7,7 +7,7 @@
   >
     <v-card>
 
-      <span>Συνδεθείτε</span>
+      <span class="title">{{ title }}</span>
       <v-btn
         @click="modalClosed"
         class="right"
@@ -18,27 +18,30 @@
       <v-flex justify-center>
         <v-form
           @submit.prevent="submitForm"
-          ref="form">
+          ref="form"
+        >
           <v-text-field
             label="Όνομα Χρήστη"
             v-model="username"
-            required
+            :rules="rules.required"
           />
           <v-text-field
             label="Κωδικός"
             v-model="password"
             type="password"
-            required
+            :rules="rules.required"
           />
-          <v-switch
-            :label="switchLabel"
-            v-model="oldAccount"
-          />
-          <v-btn
-            type="submit"
-            :loading="busy"
-            :disabled="busy">{{ submitButtonLabel }}
-          </v-btn>
+          <a @click.prevent="toggleAction">{{ linkText }}</a>
+
+          <v-layout justify-center>
+            <v-btn
+              type="submit"
+              :loading="busy"
+              :disabled="busy"
+              class="d-block m-auto"
+            >{{ mainButtonLabel }}
+            </v-btn>
+          </v-layout>
         </v-form>
       </v-flex>
     </v-card>
@@ -49,21 +52,31 @@
 import { mapActions } from 'vuex';
 import authenticationService from '../services/authentication-service';
 
+const required = (text) => {
+  return (text != null && text.trim() !== '') || 'Αυτό το πεδίο είναι υποχρεωτικό';
+};
 export default {
   data() {
     return {
       busy: false,
-      username: '',
+      alreadyHasAccount: true,
       password: '',
-      oldAccount: true
+      rules: {
+        required: [required]
+      },
+      username: ''
     };
   },
   computed: {
-    submitButtonLabel() {
-      return this.oldAccount ? 'Συνδεση' : 'Εγγραφη';
+    linkText() {
+      return this.alreadyHasAccount ? 'Πατήστε εδώ εάν θέλετε να δημιουργήστε νέο λογαριασμό.'
+        : 'Πατήστε εδώ αν θέλετε να συνδεθείτε σε υπάρχον λογαριασμό.';
     },
-    switchLabel() {
-      return this.oldAccount ? 'Έχω ήδη λογαριασμό' : 'Θέλω να αποκτήσω νέο λογαριασμό';
+    mainButtonLabel() {
+      return this.alreadyHasAccount ? 'συνδεση' : 'εγγραφη';
+    },
+    title() {
+      return this.alreadyHasAccount ? 'Συνδεθείτε' : 'Εγγραφείτε';
     }
   },
   watch: {
@@ -71,6 +84,7 @@ export default {
       this.$refs.form.reset();
     }
   },
+
   methods: {
     login() {
       this.busy = true;
@@ -81,6 +95,7 @@ export default {
           this.modalClosed();
         })
         .catch((err) => {
+          console.error(err);
           console.error('login failed');
           const message = 'Η προσπάθεια σύνδεσης απέτυχε.';
           this.$swal({
@@ -112,19 +127,29 @@ export default {
           this.handleSuccess(res);
           this.modalClosed();
         })
-        .catch(() => {
-          console.error('register failed');
+        .catch((err) => {
+          console.error(err);
+          const message = 'Η δημιουργία λογαριασμού απέτυχε.';
+          this.$swal({
+            type: 'error',
+            text: message
+          });
         }).finally(() => {
           this.busy = false;
         });
     },
     submitForm() {
-      console.log('submit');
-      if (this.oldAccount) {
+      if (!this.$refs.form.validate()) {
+        return;
+      }
+      if (this.alreadyHasAccount) {
         this.login();
       } else {
         this.register();
       }
+    },
+    toggleAction() {
+      this.alreadyHasAccount = !this.alreadyHasAccount;
     },
     ...mapActions(['setToken', 'setUserData'])
   },
@@ -143,5 +168,8 @@ export default {
 }
 .right {
   float: right;
+}
+
+.v-btn {
 }
 </style>

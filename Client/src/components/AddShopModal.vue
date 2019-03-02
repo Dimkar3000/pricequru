@@ -20,21 +20,25 @@
         xs-offset-3
         justify-center
       >
-        <v-form @submit.prevent="save">
+        <v-form
+          @submit.prevent="save"
+          ref="form"
+        >
           <v-text-field
             label="Όνομα"
             v-model="shop.name"
-            required
+            :rules="rules.name"
           />
           <v-text-field
             label="Διεύθυνση"
             v-model="shop.address"
-            required
+            :rules="rules.address"
           />
           <v-btn
             type="button"
             @click="getCoordinatesFromAddress"
-            :loading="gettingCoordinates">Εύρεση στο χάρτη</v-btn>
+            :loading="gettingCoordinates"
+          >Εύρεση στο χάρτη</v-btn>
           <v-combobox
             label="Tags"
             v-model="shop.tags"
@@ -49,7 +53,8 @@
               map-type-id="terrain"
               style="width: 100%; height: 40vh; margin: 50px auto;"
               :options="options"
-              ref="map">
+              ref="map"
+            >
               <GmapMarker
                 :position="initialCenter"
                 draggable
@@ -60,7 +65,8 @@
 
           <v-btn
             :loading="busy"
-            type="submit">Προσθηκη</v-btn>
+            type="submit"
+          >Προσθηκη</v-btn>
         </v-form>
       </v-flex>
     </v-card>
@@ -74,6 +80,14 @@ import { mapState } from 'vuex';
 import shopsService from '../services/shops-service';
 import geolocation from '../services/geolocation';
 
+const addressRule = (text) => {
+  return (text != null && text.trim() !== '') ||
+    'Η διεύθυνση του καταστήματος είναι υποχρεωτικό πεδίο.';
+};
+const nameRule = (text) => {
+  return (text != null && text.trim() !== '') ||
+    'Το όνομα του καταστήματος είναι υποχρεωτικό πεδίο.';
+};
 export default {
   props: {
     open: {
@@ -85,21 +99,31 @@ export default {
     return {
       busy: false,
       gettingCoordinates: false,
-      initialCenter: { lat: 10, lng: 10 },
-      selectedPosition: { lat: 10, lng: 10 },
-      shop: {
-        description: '',
-        name: '',
-        tags: [],
-        lat: 0,
-        lng: 0,
-        address: ''
+      initialCenter: {
+        lat: 10,
+        lng: 10
       },
       options: {
         mapTypeControl: false,
         minZoom: 5,
         streetViewControl: false
       },
+      rules: {
+        address: [addressRule],
+        name: [nameRule]
+      },
+      selectedPosition: {
+        lat: 10,
+        lng: 10
+      },
+      shop: {
+        address: '',
+        description: '',
+        lat: 0,
+        lng: 0,
+        name: '',
+        tags: []
+      }
     };
   },
   computed: {
@@ -159,7 +183,7 @@ export default {
       this.$emit('closed');
     },
     async save() {
-      if (this.busy || !this.shop.name.trim()) {
+      if (this.busy || !this.$refs.form.validate()) {
         return;
       }
       this.busy = false;
@@ -178,6 +202,11 @@ export default {
         });
       } catch (err) {
         console.error(err);
+        const message = 'Η αποθήκευση του καταστήματος απέτυχε.';
+        this.$swal({
+          type: 'error',
+          text: message
+        });
       } finally {
         this.busy = false;
       }

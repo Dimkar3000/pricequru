@@ -22,7 +22,8 @@
       >
         <v-form
           @submit.prevent="save"
-          ref="form">
+          ref="form"
+        >
           <v-select
             :items="categories"
             v-model="product.category"
@@ -31,7 +32,7 @@
           <v-text-field
             label="Όνομα"
             v-model="product.name"
-            required
+            :rules="rules.name"
           />
           <v-textarea
             label="Περιγραφή"
@@ -51,7 +52,8 @@
           />
           <v-btn
             :loading="busy"
-            type="submit">Προσθηκη</v-btn>
+            type="submit"
+          >Προσθηκη</v-btn>
 
         </v-form>
       </v-flex>
@@ -67,6 +69,10 @@ import SmartphoneFormPartial from './SmartphoneFormPartial.vue';
 
 import productsService from '../services/products-service';
 
+const productRule = (text) => {
+  return (text != null && text.trim() !== '') ||
+    'Το όνομα του προϊόντος είναι υποχρεωτικό πεδίο.';
+};
 export default {
   components: {
     LaptopFormPartial,
@@ -92,7 +98,10 @@ export default {
         name: '',
         tags: []
       },
-      productAdditionalInfo: {}
+      productAdditionalInfo: {},
+      rules: {
+        name: [productRule]
+      }
     };
   },
   watch: {
@@ -112,11 +121,15 @@ export default {
 
   },
   methods: {
+    clearValidation() {
+      console.log('clear');
+      this.$refs.form.resetValidation();
+    },
     modalClosed() {
       this.$emit('closed');
     },
     async save() {
-      if (this.busy) {
+      if (this.busy || !this.$refs.form.validate()) {
         return;
       }
       this.busy = false;
@@ -135,6 +148,11 @@ export default {
         });
       } catch (err) {
         console.error(err);
+        const message = 'Η αποθήκευση του προϊόντος απέτυχε.';
+        this.$swal({
+          type: 'error',
+          text: message
+        });
       } finally {
         this.busy = false;
       }

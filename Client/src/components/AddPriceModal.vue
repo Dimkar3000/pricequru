@@ -20,7 +20,10 @@
         xs-offset-3
         justify-center
       >
-        <v-form @submit.prevent="save">
+        <v-form
+          @submit.prevent="save"
+          ref="form"
+        >
           <v-select
             :items="shops"
             label="Κατάστημα"
@@ -29,6 +32,7 @@
             v-model="selectedShopId"
             :disabled="shopLocked"
             :loading="loadingShops"
+            :rules="rules.shopId"
           />
           <v-select
             :items="products"
@@ -38,6 +42,7 @@
             v-model="selectedProductId"
             :disabled="productLocked"
             :loading="loadingProducts"
+            :rules="rules.productId"
           />
           <v-text-field
             type="number"
@@ -45,9 +50,14 @@
             min="0"
             label="Τιμή (€)"
             append-icon="euro_symbol"
+            :rules="rules.price"
           />
-          <v-date-picker v-model="dateFrom" />
-          <v-date-picker v-model="dateTo" />
+          <v-date-picker v-model="dateFrom">
+            <span class="picker-title">Από</span>
+          </v-date-picker>
+          <v-date-picker v-model="dateTo">
+            <span class="picker-title">Έως</span>
+          </v-date-picker>
 
           <div class="map">
             <GmapMap
@@ -94,6 +104,17 @@ import pricesService from '../services/prices-service';
 import productsService from '../services/products-service';
 import shopsService from '../services/shops-service';
 
+const priceRule = (price) => {
+  return price > 0 || 'Η τιμή του προϊόντος πρέπει να είναι θετικός αριθμός.';
+};
+const productRule = (value) => {
+  return value != null || 'Παρακαλώ επιλέξτε ένα κατάστημα.';
+};
+
+const shopRule = (value) => {
+  return value != null || 'Παρακαλώ επιλέξτε ένα προϊόν.';
+};
+
 export default {
   data() {
     return {
@@ -115,6 +136,11 @@ export default {
       price: 0,
       productLocked: false,
       products: [],
+      rules: {
+        price: [priceRule],
+        productId: [productRule],
+        shopId: [shopRule],
+      },
       selectedPosition: {
         lat: 10,
         lng: 10
@@ -149,6 +175,7 @@ export default {
     this.fetchData();
   },
   methods: {
+
     async centerMap() {
       console.log(this.google);
 
@@ -230,10 +257,20 @@ export default {
       this.$emit('closed');
     },
     async save() {
-      if (this.busy) {
+      if (this.busy || !this.$refs.form.validate()) {
         return;
       }
-      this.busy = false;
+      const d1 = Date.parse(this.dateFrom);
+      const d2 = Date.parse(this.dateTo);
+      if (d2 < d1) {
+        this.$swal({
+          type: 'error',
+          text: 'Η δεύτερη ημερομηνία δεν μπορεί να προηγείται της πρώτης.'
+        });
+        return;
+      }
+
+      this.busy = true;
       const data = {
         dateFrom: this.dateFrom,
         dateTo: this.dateTo,
@@ -275,5 +312,12 @@ export default {
 }
 .right {
   float: right;
+}
+
+.picker-title {
+  display: block;
+  margin: auto;
+  font-size: 2rem;
+  font-weight: bold;
 }
 </style>
