@@ -25,7 +25,7 @@ function sanitizePrices(final) {
     let r = final.map(e => {
         return {
             price: e.price,
-            date: formatDate(e.dateFrom),
+            date: formatDate(e.date),
             productName: e.productId.name,
             productId: e.productId._id,
             productTags: e.productId.tags,
@@ -55,7 +55,7 @@ module.exports = class PriceController {
             shops = [shops];
         } else {
             shops = [];
-        }       
+        }
         let products = req.query.products;
         if (!Array.isArray(products) && products !== undefined) {
             products = [products];
@@ -141,7 +141,7 @@ module.exports = class PriceController {
             select: '_id name tags address'
         };
         let findOptions = {
-            $and: [{ dateFrom: { $lte: dateTo } }, { dateTo: { $gte: dateFrom } }]
+            $and: [{ date: { $lte: dateTo, $gte: dateFrom} }]
         };
         if (shops[0] !== undefined) {
             findOptions.shopId = {
@@ -176,6 +176,7 @@ module.exports = class PriceController {
             prices: []
         };
         result.prices = sanitizePrices(price);
+        console.log(price)
         res.json(result);
     }
 
@@ -185,7 +186,6 @@ module.exports = class PriceController {
         let dateTo = new Date(req.body.dateTo);
         let productId = mongoose.Types.ObjectId(req.body.productId);
         let shopId = mongoose.Types.ObjectId(req.body.shopId);
-        let id = new mongoose.mongo.ObjectId();
 
         let product = await Product.findOne({ _id: productId });
         if (!product) {
@@ -201,50 +201,47 @@ module.exports = class PriceController {
             return;
         }
 
-        let priceRequest = new Price({
-            _id: id,
-            price,
-            dateFrom,
-            dateTo,
-            productId,
-            shopId
-        });
-        let priceObj = await priceRequest.save();
-        if (!priceObj) {
-            res.status(401).end();
-            return;
-        }
         let response = {
             start: 0,
-            count: 2,
-            total: 2,
-            price: [
-                {
-                    price,
-                    date: req.body.dateFrom,
-                    productName: product.name,
-                    productTags: product.tags,
-                    productId,
-                    shopId,
-                    shopName: shop.name,
-                    shopTags: shop.tags,
-                    shopAddress: shop.address,
-                    shopDist: 2
-                },
-                {
-                    price,
-                    date: req.body.dateTo,
-                    productName: product.name,
-                    productTags: product.tags,
-                    productId,
-                    shopId,
-                    shopName: shop.name,
-                    shopTags: shop.tags,
-                    shopAddress: shop.address,
-                    shopDist: 2
-                }
-            ]
+            count: 0,
+            total: 0,
+            price: []
         };
+
+        while (true) {
+            if (dateFrom.getDate() > dateTo.getDate()) {
+                break;
+            }
+            response.total += 1;
+            response.count += 1;
+
+            let priceRequest = new Price({
+                _id: new mongoose.mongo.ObjectId(),
+                price,
+                date: dateFrom,
+                productId,
+                shopId
+            });
+            let priceObj = await priceRequest.save();
+            if (!priceObj) {
+                res.status(401).end();
+                return;
+            }
+            response.price.push({
+                price,
+                date: req.body.dateTo,
+                productName: product.name,
+                productTags: product.tags,
+                productId,
+                shopId,
+                shopName: shop.name,
+                shopTags: shop.tags,
+                shopAddress: shop.address,
+                shopDist: 2
+            })
+            dateFrom.setDate(dateFrom.getDate() + 1);
+            
+        }
         res.json(response);
     }
 }

@@ -4,8 +4,7 @@ const mongoosePaginate = require('mongoose-paginate');
 const priceSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     price: Number,
-    dateFrom: Date,
-    dateTo: Date,
+    date: Date,
     productId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product'
