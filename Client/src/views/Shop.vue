@@ -47,7 +47,6 @@
           >
             {{ tag }}
           </v-chip>
-          <v-card-text>{{ prices.prices.length }} Τιμές</v-card-text>
         </v-card>
       </v-flex>
     </v-layout>

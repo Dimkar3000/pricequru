@@ -91,14 +91,14 @@
         :key="price.id"
       >
 
-        <v-list-content>
+        <v-list-tile-content>
           <v-list-tile-title
             @click="viewShop(price.shopId)"
             v-text="price.shopName"
             class="clickable"
           />
           <v-list-tile-sub-title>{{ price.price }}€</v-list-tile-sub-title>
-        </v-list-content>
+        </v-list-tile-content>
       </v-list-tile>
     </v-list>
 
