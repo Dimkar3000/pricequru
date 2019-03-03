@@ -140,6 +140,12 @@ module.exports = class PriceController {
             match: { withdrawn: false },
             select: '_id name tags address'
         };
+        dateFrom.setHours(0);
+        dateFrom.setMinutes(0);
+        dateFrom.setSeconds(0);
+        dateTo.setHours(23);
+        dateTo.setMinutes(59);
+        dateTo.setSeconds(59)
         let findOptions = {
             $and: [{ date: { $lte: dateTo, $gte: dateFrom} }]
         };
@@ -209,7 +215,7 @@ module.exports = class PriceController {
         };
 
         while (true) {
-            if (dateFrom.getDate() > dateTo.getDate()) {
+            if (dateFrom.getTime() > dateTo.getTime()) {
                 break;
             }
             response.total += 1;

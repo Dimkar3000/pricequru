@@ -1,7 +1,7 @@
 cd Server
-npm i
+npm install
 cd ../Client
-npm i
+npm install
 npm run build
 rm -rf ../Server/public
 cp -r dist ../Server/public

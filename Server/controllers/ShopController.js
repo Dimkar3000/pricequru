@@ -115,7 +115,7 @@ module.exports = class ShopController {
     async GetShopById(req, res) {
         Shop.findOne({ _id: req.params.id }, (err, shop) => {
             if (err) {
-                res.status(400)
+                res.status(404)
                 res.end()
             }
             else if (shop == null) {

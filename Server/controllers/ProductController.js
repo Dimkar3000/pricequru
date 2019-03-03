@@ -110,7 +110,7 @@ module.exports = class ProductController {
     async GetProductById(req, res) {
         await Product.findOne({ _id: req.params.id }, (err, product) => {
             if (err) {
-                res.status(400).end();
+                res.status(404).end();
             }
             else if (product == null) {
                 res.status(404).end();

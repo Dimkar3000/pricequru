@@ -42,9 +42,9 @@ module.exports = class IdentityController {
     if (existingSession) {
       if (existingSession.password === req.body.password) {
         // Session Already created
-        res.set('X-OBSERVATORY-AUTH', existingSession.id);
+        res.set('X-OBSERVATORY-AUTH', existingSession.key);
         let response = responses.OK;
-        response.token = existingSession.id;
+        response.token = existingSession.key;
         res.json(response);
         return;
       } else {
@@ -86,7 +86,7 @@ module.exports = class IdentityController {
   async Logout(req, res) {
     let auth = req.header('X-OBSERVATORY-AUTH');
     if (auth != null) {
-      await Session.findByIdAndDelete({ _id: auth });
+      await Session.findByIdAndDelete({ key: auth });
       res.json(responses.OK);
     } else {
       res.status(401).end();
