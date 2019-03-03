@@ -1,21 +1,54 @@
 import { request } from './agent';
+import filterProperties from '../helpers/filter-properties';
 
 function createProduct({
-  name,
-  description,
   category,
+  description,
+  extraData,
+  name,
   tags
 }, token) {
+  const filteredData = filterProperties(extraData);
+
+  console.log(filteredData);
   const data = {
-    name,
-    description,
     category,
+    description,
+    extraData: filteredData,
+    name,
     tags,
     withdrawn: false
   };
   return request({
     method: 'POST',
     url: 'products',
+    data,
+    token
+  });
+}
+
+function editProduct({
+  category,
+  description,
+  extraData,
+  name,
+  id,
+  tags
+}, token) {
+  const filteredData = filterProperties(extraData);
+
+  console.log(filteredData);
+  const data = {
+    category,
+    description,
+    extraData: filteredData,
+    name,
+    tags,
+    withdrawn: false
+  };
+  return request({
+    method: 'PUT',
+    url: `products/${id}`,
     data,
     token
   });
@@ -91,6 +124,7 @@ function removeProduct(id, token) {
 
 const productsService = {
   createProduct,
+  editProduct,
   getAllProducts,
   getProducts,
   getProduct,

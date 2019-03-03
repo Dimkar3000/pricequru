@@ -12,6 +12,11 @@
         @click="addingPrice=true"
       >Προσθηκη τιμης
       </v-btn>
+      <v-btn
+        v-if="token"
+        @click="editingProduct=true"
+      >Επεξεργασια
+      </v-btn>
     </v-layout>
 
     <v-layout>
@@ -49,8 +54,15 @@
             primary-title
             class="title"
           >{{ product.name }}</v-card-title>
-          <v-card-text>{{ product.category }}</v-card-text>
+          <v-card-text class='capitalize'>{{ product.category }}</v-card-text>
           <v-card-text>{{ product.description }} </v-card-text>
+          <v-card-text
+            v-for="(extraDatum, i) in extraData"
+            :key="i"
+          >
+            <span class="m-r">{{ extraDatum.label }}:</span>
+            <span>{{ extraDatum.value }}</span>
+          </v-card-text>
           <v-chip
             v-for="tag in product.tags"
             :key="tag"
@@ -95,13 +107,23 @@
       @closed="addingPrice=false"
       :initial-product-id="id"
     />
+    <AddProductModal
+      v-if="this.product"
+      :open="editingProduct"
+      @closed="editingProduct=false"
+      :product-to-edit="this.product"
+      @product-edited="productEdited"
+    />
   </div>
+
 </template>
 
 <script>
 import { mapState } from 'vuex';
 
 import AddPriceModal from '../components/AddPriceModal.vue';
+import AddProductModal from '../components/AddProductModal.vue';
+import labels from '../helpers/extra-data-labels';
 import pricesService from '../services/prices-service';
 import productsService from '../services/products-service';
 
@@ -113,12 +135,14 @@ export default {
     }
   },
   components: {
-    AddPriceModal
+    AddPriceModal,
+    AddProductModal
   },
   name: 'Product',
   data() {
     return {
       addingPrice: false,
+      editingProduct: false,
       loadingPrices: false,
       loadingProduct: false,
       prices: [],
@@ -135,6 +159,16 @@ export default {
     }
   },
   computed: {
+    extraData() {
+      if (!this.product || !this.product.extraData) { return []; }
+      const keys = Object.keys(this.product.extraData);
+      return keys.map((key) => {
+        return {
+          label: labels[key],
+          value: this.product.extraData[key]
+        };
+      });
+    },
     isProductAvailable() {
       return this.prices && this.prices.prices && this.prices.prices.length > 0;
     },
@@ -178,6 +212,9 @@ export default {
         }
       }
     },
+    getLabel(key) {
+      return labels(key);
+    },
     getLocalUrl(product) {
       const urlParts = product.imageUrl.split('/');
       const fileName = urlParts[urlParts.length - 1];
@@ -198,6 +235,10 @@ export default {
       } finally {
         this.removeProduct = false;
       }
+    },
+    productEdited(product) {
+      console.log('edited');
+      this.product = product;
     },
     viewShop(shopId) {
       this.$router.push({

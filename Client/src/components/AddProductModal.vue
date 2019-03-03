@@ -7,7 +7,7 @@
   >
     <v-card>
 
-      <span>Προσθήκη νέου προϊόντος</span>
+      <span>{{ modalTitle }}</span>
       <v-btn
         @click="modalClosed"
         class="right"
@@ -48,14 +48,87 @@
             deletable-chips
           />
           <v-divider />
-          <component
-            :is="additionalFieldsComponent"
-            @change="updateAdditionalInfo"
-          />
+          <template v-if="product.category==='smartphone'">
+            <v-text-field
+              type="number"
+              label="Οθόνη (Ίντσες)"
+              v-model.number="extraData.smartphone.screenSize"
+              min="0"
+            />
+            <v-text-field
+              type="number"
+              label="RAM (GB)"
+              v-model.number="extraData.smartphone.ram"
+              min="0"
+            />
+            <v-text-field
+              label="Αποθηκευτικός Χώρος (GB)"
+              type="number"
+              v-model.number="extraData.smartphone.storage"
+              min="0"
+            />
+            <v-text-field
+              label="Βασική κάμερα (MP)"
+              type="number"
+              v-model.number="extraData.smartphone.camera"
+              min="0"
+            />
+            <v-text-field
+              label="Πίσω κάμερα (MP)"
+              type="number"
+              v-model.number="extraData.smartphone.selfieCamera"
+              min="0"
+            />
+            <v-text-field
+              label="Πυρήνες CPU"
+              type="number"
+              v-model.number="extraData.smartphone.cpuCores"
+              min="1"
+            />
+          </template>
+
+          <template v-if="product.category==='laptop'">
+            <v-text-field
+              type="number"
+              label="Οθόνη (Ίντσες)"
+              v-model.number="extraData.laptop.screenSize"
+              min="0"
+            />
+            <v-text-field
+              label="Ανάλυση Οθόνης"
+              v-model="extraData.laptop.screenResolution"
+            />
+            <v-text-field
+              label="Λειτουργικό Σύστημα"
+              v-model="extraData.laptop.operatingSystem"
+            />
+            <v-text-field
+              label="Επεξεργαστής"
+              v-model.number="extraData.laptop.cpu"
+            />
+
+            <v-text-field
+              label="Κάρτα Γραφικών"
+              v-model="extraData.laptop.gpu"
+            />
+            <v-text-field
+              type="number"
+              label="RAM (GB)"
+              v-model.number="extraData.laptop.ram"
+              min="0"
+            />
+            <v-text-field
+              label="Αποθηκευτικός Χώρος (GB)"
+              type="number"
+              v-model.number="extraData.laptop.storage"
+              min="0"
+            />
+          </template>
+
           <v-btn
             :loading="busy"
             type="submit"
-          >Προσθηκη</v-btn>
+          >{{ buttonLabel }}</v-btn>
 
         </v-form>
       </v-flex>
@@ -91,7 +164,12 @@ export default {
   props: {
     open: {
       default: false,
-      type: Boolean,
+      type: Boolean
+    },
+    productToEdit: {
+      default: () => { return {}; },
+      required: false,
+      type: Object
     }
   },
   data() {
@@ -102,13 +180,31 @@ export default {
           { text: 'Laptop', value: 'laptop' },
           { text: 'Smartphone', value: 'smartphone' },
         ],
+      extraData: {
+        laptop: {
+          cpu: null,
+          gpu: null,
+          operatingSystem: null,
+          ram: null,
+          screenResolution: null,
+          screenSize: null,
+          storage: null
+        },
+        smartphone: {
+          camera: null,
+          cpuCores: null,
+          ram: null,
+          screenSize: null,
+          selfieCamera: null,
+          storage: null
+        }
+      },
       product: {
         category: 'smartphone',
         description: '',
         name: '',
         tags: []
       },
-      productAdditionalInfo: {},
       rules: {
         category: [categoryRule],
         description: [descriptionRule],
@@ -117,17 +213,30 @@ export default {
     };
   },
   watch: {
-    open() {
-      this.$refs.form.reset();
+    open(newValue) {
+      if (newValue) {
+        this.initializeData();
+      }
     }
   },
   computed: {
-    additionalFieldsComponent() {
-      switch (this.product.category) {
-        case 'laptop': return 'LaptopFormPartial';
-        case 'smartphone': return 'SmartphoneFormPartial';
-        default: return '';
-      }
+    buttonLabel() {
+      return this.editingProduct ?
+        'Αποθηκευση' :
+        'Προσθκηκη';
+    },
+    editingProduct() {
+      return this.productToEdit && this.productToEdit.id != undefined;
+    },
+    modalTitle() {
+      return this.editingProduct ?
+        'Επεξεργασία προϊόντος' :
+        'Προσθήκη νέου προϊόντος';
+    },
+    selectedExtraData() {
+      return this.product.category === 'laptop' ?
+        this.extraData.laptop :
+        this.extraData.smartphone;
     },
     ...mapState({ token: (state) => { return state.user.token; } })
 
@@ -136,6 +245,17 @@ export default {
     clearValidation() {
       console.log('clear');
       this.$refs.form.resetValidation();
+    },
+    initializeData() {
+      if (!this.editingProduct) {
+        this.$refs.form.reset();
+        // return;
+      }
+      this.product.category = this.productToEdit.category;
+      this.product.description = this.productToEdit.description;
+      this.product.name = this.productToEdit.name;
+      this.product.tags = this.productToEdit.tags;
+      this.extraData[this.productToEdit.category] = this.productToEdit.extraData;
     },
     modalClosed() {
       this.$emit('closed');
@@ -147,17 +267,24 @@ export default {
       this.busy = false;
       const data = {
         ...this.product,
-        ...this.productAdditionalInfo
+        extraData: this.selectedExtraData
       };
-      console.log(data);
+      console.log({ data });
       try {
-        const product = (await productsService.createProduct(data, this.token)).data;
-        this.$router.push({
-          name: 'product',
-          params: {
-            id: product.id
-          }
-        });
+        if (this.editingProduct) {
+          data.id = this.productToEdit.id;
+          const product = (await productsService.editProduct(data, this.token)).data;
+          this.$emit('product-edited', product);
+          this.modalClosed();
+        } else {
+          const product = (await productsService.createProduct(data, this.token)).data;
+          this.$router.push({
+            name: 'product',
+            params: {
+              id: product.id
+            }
+          });
+        }
       } catch (err) {
         console.error(err);
         const message = 'Η αποθήκευση του προϊόντος απέτυχε.';
@@ -168,9 +295,6 @@ export default {
       } finally {
         this.busy = false;
       }
-    },
-    updateAdditionalInfo(productAdditionalInfo) {
-      this.productAdditionalInfo = productAdditionalInfo;
     }
   }
 };

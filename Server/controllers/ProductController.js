@@ -8,8 +8,10 @@ var Session = require('../models/session');
 function sanitizeProduct(p) {
     return {
         id: p._id,
+        category: p.category,
         name: p.name,
         description: p.description,
+        extraData: p.extraData,
         tags: p.tags,
         withdrawn: p.withdrawn
     }
@@ -72,6 +74,7 @@ module.exports = class ProductController {
         let name = req.body.name;
         let description = req.body.description;
         let category = req.body.category;
+        let extraData = req.body.extraData;
         let tags = req.body.tags;
         if (typeof tags === "string") {
             tags = [tags];
@@ -84,6 +87,7 @@ module.exports = class ProductController {
             name,
             description,
             category,
+            extraData,
             tags,
             withdrawn,
         }
@@ -93,6 +97,7 @@ module.exports = class ProductController {
             name,
             description,
             category,
+            extraData,
             tags,
             withdrawn
         })
@@ -119,6 +124,7 @@ module.exports = class ProductController {
 
     async PutProduct(req, res) {
         let name = req.body.name;
+        let extraData = req.body.extraData;
         let description = req.body.description;
         let category = req.body.category;
         let tags = req.body.tags;
@@ -132,6 +138,7 @@ module.exports = class ProductController {
 
         await Product.findOneAndUpdate({ _id: id }, {
             name,
+            extraData,
             description,
             category,
             tags,
@@ -146,7 +153,7 @@ module.exports = class ProductController {
                 return;
             }
             else {
-                var result = { id, name, description, category, tags, withdrawn }
+                var result = { id, name, description, category, tags, withdrawn, extraData }
                 res.json(result);
                 return;
             }

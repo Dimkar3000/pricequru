@@ -6,6 +6,7 @@ const productSchema = mongoose.Schema({
     name: String,
     description: String,
     category: String,
+    extraData: Object,
     tags: [String],
     withdrawn: Boolean
 

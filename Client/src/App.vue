@@ -140,7 +140,13 @@ h2 {
 .fl-r {
   float: right;
 }
+.m-r {
+  margin-right: 20px;
+}
 
+.capitalize {
+  text-transform: capitalize;
+}
 .black-text {
   color: #222;
 }
