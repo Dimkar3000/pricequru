@@ -235,7 +235,7 @@ module.exports = class PriceController {
             }
             response.price.push({
                 price,
-                date: req.body.dateTo,
+                date: formatDate(dateFrom),
                 productName: product.name,
                 productTags: product.tags,
                 productId,

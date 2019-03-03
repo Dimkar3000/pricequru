@@ -86,7 +86,7 @@ module.exports = class IdentityController {
   async Logout(req, res) {
     let auth = req.header('X-OBSERVATORY-AUTH');
     if (auth != null) {
-      await Session.findByIdAndDelete({ key: auth });
+      await Session.deleteOne({ key: auth });
       res.json(responses.OK);
     } else {
       res.status(401).end();

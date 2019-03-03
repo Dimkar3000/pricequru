@@ -223,7 +223,7 @@ export default {
     buttonLabel() {
       return this.editingProduct ?
         'Αποθηκευση' :
-        'Προσθκηκη';
+        'Προσθηκη';
     },
     editingProduct() {
       return this.productToEdit && this.productToEdit.id != undefined;
