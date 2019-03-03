@@ -122,6 +122,7 @@ module.exports = class IdentityController {
       _id: sessionId,
       username: user.username,
       password: user.password,
+      key: userId,
       isAdmin: false
     });
     await session.save();
