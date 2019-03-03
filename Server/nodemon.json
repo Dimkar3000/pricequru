@@ -2,7 +2,6 @@
     "env":{
         "PORT": 8765,
         "MONGO_PASS":"priceguru1234!",
-        "DB_NAME":"test",
-        "TZ":"Europe/Athens"
+        "DB_NAME":"test"
     }
 }
